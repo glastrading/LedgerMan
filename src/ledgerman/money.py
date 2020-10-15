@@ -1,4 +1,3 @@
-
 class Money:
     defaultCurrency = "EUR"
 
@@ -27,10 +26,18 @@ class Money:
             return self.amount == other
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't compare different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't compare different currencies without conversion."
+                )
             return self.amount == other.amount
         else:
-            raise TypeError("Can't check equality of " + str(type(self)) + " and " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't check equality of "
+                + str(type(self))
+                + " and "
+                + str(type(other))
+                + "."
+            )
 
     def __ne__(self, other):
         return not self == other
@@ -40,40 +47,56 @@ class Money:
             return self.amount < other
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't compare different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't compare different currencies without conversion."
+                )
             return self.amount < other.amount
         else:
-            raise TypeError("Can't compare " + str(type(self)) + " and " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't compare " + str(type(self)) + " and " + str(type(other)) + "."
+            )
 
     def __le__(self, other):
         if type(other) in [int, float]:
             return self.amount <= other
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't compare different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't compare different currencies without conversion."
+                )
             return self.amount <= other.amount
         else:
-            raise TypeError("Can't compare " + str(type(self)) + " and " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't compare " + str(type(self)) + " and " + str(type(other)) + "."
+            )
 
     def __gt__(self, other):
         if type(other) in [int, float]:
             return self.amount > other
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't compare different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't compare different currencies without conversion."
+                )
             return self.amount > other.amount
         else:
-            raise TypeError("Can't compare " + str(type(self)) + " and " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't compare " + str(type(self)) + " and " + str(type(other)) + "."
+            )
 
     def __ge__(self, other):
         if type(other) in [int, float]:
             return self.amount >= other
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't compare different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't compare different currencies without conversion."
+                )
             return self.amount >= other.amount
         else:
-            raise TypeError("Can't compare " + str(type(self)) + " and " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't compare " + str(type(self)) + " and " + str(type(other)) + "."
+            )
 
     # --- calculations
 
@@ -82,20 +105,28 @@ class Money:
             return Money(self.amount + other, self.currency)
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't add different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't add different currencies without conversion."
+                )
             return Money(self.amount + other.amount, self.currency)
         else:
-            raise TypeError("Can't add " + str(type(self)) + " and " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't add " + str(type(self)) + " and " + str(type(other)) + "."
+            )
 
     def __sub__(self, other):
         if type(other) in [int, float]:
             return Money(self.amount - other, self.currency)
         elif type(other) == type(self):
             if self.currency != other.currency:
-                raise Money.ConversionError("Can't subtract different currencies without conversion.")
+                raise Money.ConversionError(
+                    "Can't subtract different currencies without conversion."
+                )
             return Money(self.amount - other.amount, self.currency)
         else:
-            raise TypeError("Can't subtract " + str(type(other)) + " from " + str(type(self)) + ".")
+            raise TypeError(
+                "Can't subtract " + str(type(other)) + " from " + str(type(self)) + "."
+            )
 
     def __neg__(self):
         return Money(-self.amount, self.currency)
@@ -104,7 +135,9 @@ class Money:
         if type(other) in [int, float]:
             return Money(self.amount * other, self.currency)
         else:
-            raise TypeError("Can't multiply " + str(type(self)) + " by " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't multiply " + str(type(self)) + " by " + str(type(other)) + "."
+            )
 
     def __truediv__(self, other):
         if type(other) in [int, float]:
@@ -112,7 +145,9 @@ class Money:
         elif type(other) == type(self):
             return self.amount / other.amount
         else:
-            raise TypeError("Can't divide " + str(type(self)) + " by " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't divide " + str(type(self)) + " by " + str(type(other)) + "."
+            )
 
     def __mod__(self, other):
         if type(other) in [int, float]:
@@ -120,4 +155,6 @@ class Money:
         elif type(other) == type(self):
             return self.amount % other.amount
         else:
-            raise TypeError("Can't mod " + str(type(self)) + " by " + str(type(other)) + ".")
+            raise TypeError(
+                "Can't mod " + str(type(self)) + " by " + str(type(other)) + "."
+            )
