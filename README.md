@@ -49,6 +49,34 @@ m - Money(20, "ETH") # ERROR - you can't add different currencies
 
 ... pretty straight forward!
 
+### Exchange Rates
+
+Whenever you want to work with multiple currencies, you may want to convert them:
+
+```python
+m = Money(20, "EUR")
+e = ExchangeRate("EUR", "USD", 1.17) # from 2020-10-15
+
+e # 1 EUR => 1.17 USD
+e.inverse() # 1 USD => 0.85 EUR
+
+e.convert(m) # 23.4 USD
+```
+
+Just add common exchange rates so you can add money objects of different currencies:
+
+```python
+# Add exchange rate
+Money.addExchangeRate(
+	ExchangeRate("EUR", "ETH", 0.0031) # from 2020-10-15
+)
+Money.canConvert("EUR", "ETH") # Check: true
+
+m = Money(5, "ETH")
+m.to("EUR") # 1612.90 EUR
+
+m = Money(5, "ETH") + Money(200, "EUR") # 5.62 ETH
+```
 
 ## License
 

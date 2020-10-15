@@ -1,1 +1,1 @@
-from .money import Money
+from .money import Money, ExchangeRate
