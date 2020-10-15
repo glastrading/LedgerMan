@@ -1,14 +1,15 @@
 from setuptools import setup
 
 long_description = """
-|PyPI - Version| |Downloads| |Code style: black|
 
 Ledgerman
 =========
 
+|PyPI - Version| |Downloads| |Code style: black|
+
 Yet another python module for finance.
 
-`Read more on GitHub <https://github.com/finnmglas/ledgerman>`__ or
+`Learn using the library on GitHub <https://github.com/finnmglas/ledgerman>`__ or
 `Contact Finn <https://www.finnmglas.com/contact>`__
 
 .. |PyPI - Version| image:: https://img.shields.io/pypi/v/ledgerman?color=000
@@ -21,11 +22,11 @@ Yet another python module for finance.
 
 setup(
     name="ledgerman",
-    version="0.1.0",
+    version="0.2.0",
     description="Yet another python module for finance.",
     long_description=long_description,
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Intended Audience :: Financial and Insurance Industry",
