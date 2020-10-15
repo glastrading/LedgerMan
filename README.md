@@ -1,7 +1,7 @@
 
 # Ledgerman :ledger:
 
-Yet another python module for finance. Different? Currently empty.
+Yet another python module for finance.
 
 [![PyPI - Version][pypi-version-badge]][pypi]
 [![Downloads][pepi-downloads-badge]][pepy tech]

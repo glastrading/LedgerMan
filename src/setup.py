@@ -6,7 +6,7 @@ long_description = """
 Ledgerman
 =========
 
-Yet another python module for finance. Different? Currently empty.
+Yet another python module for finance.
 
 `Read more on GitHub <https://github.com/finnmglas/ledgerman>`__ or
 `Contact Finn <https://www.finnmglas.com/contact>`__
@@ -21,17 +21,17 @@ Yet another python module for finance. Different? Currently empty.
 
 setup(
     name="ledgerman",
-    version="0.0.0",
+    version="0.1.0",
     description="Yet another python module for finance.",
     long_description=long_description,
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Intended Audience :: Financial and Insurance Industry",
         "Topic :: Office/Business :: Financial :: Accounting",
     ],
-    keywords="git management repositories manager efficiency",
+    keywords="accounting finance manager money library ledger ledgerman",
     url="http://github.com/finnmglas/ledgerman",
     author="Finn M Glas",
     author_email="finn@finnmglas.com",
