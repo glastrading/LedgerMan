@@ -9,7 +9,46 @@ Yet another python module for finance. Different? Currently empty.
 
 ## Installation
 
-To install GitPM, run `pip install ledgerman`.
+To install ledgerman, run `pip install ledgerman`.
+
+## Usage
+
+Start by importing ledgerman:
+
+```python
+from ledgerman import *
+```
+
+### Let's talk Money
+
+For finanial calculations, the `Money` class is very useful:
+
+```python
+m1 = Money() # default: 0 EUR
+m2 = Money(10) # 10 EUR
+m3 = Money(10, "USD")
+```
+
+You can interact with `Money` as you would expect:
+
+```python
+m = Money(20)
+
+m += 5
+m += Money(5)
+
+m /= 2
+m -=
+m == 15 # true
+
+if m:
+  print("We're rich!") # will be printed
+
+m - Money(20, "ETH") # ERROR - you can't add different currencies
+```
+
+... pretty straight forward!
+
 
 ## License
 
