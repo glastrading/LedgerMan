@@ -159,32 +159,3 @@ class Money:
             raise TypeError(
                 "Can't mod " + str(type(self)) + " by " + str(type(other)) + "."
             )
-
-
-class ExchangeRate:
-    def __init__(self, base, exchange, rate):
-        self.base = base
-        self.exchange = exchange
-        self.rate = rate
-
-    def inverse(self):
-        return ExchangeRate(self.exchange, self.base, 1 / self.rate)
-
-    def __repr__(self):
-        return str(Money(1, self.base)) + " => " + str(Money(self.rate, self.exchange))
-
-    def canConvert(self, base, exchange):
-        return (self.base == base and self.exchange == exchange) or (
-            self.base == exchange and self.exchange == base
-        )
-
-    def convert(self, money):
-        if type(money) == Money:
-            if self.base == money.currency:
-                return Money(money.amount * self.rate, self.exchange)
-            elif self.exchange == money.currency:
-                return Money(money.amount / self.rate, self.base)
-            else:
-                raise TypeError("Can't convert this currency here.")
-        else:
-            raise TypeError("Can't convert " + str(type(money)) + " to money.")
