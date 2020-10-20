@@ -8,11 +8,32 @@ Yet another python module for finance.
 [![Discord][discord-badge]][discord]
 [![Code style: black][code-black-badge]][code-black]
 
-## Installation
+
+<details>
+  <summary>Table of contents</summary>
+
+## Table of contents
+
++ [1 - Installation](#installation)
++ [2 - Usage](#usage)
+  + [2.1 - Money](#usage-money)
+  + [2.2 - Exchange Rates](#usage-exchange-rates)
+  + [2.3 - Accounts](#usage-accounts)
++ [3 - Tools](#tools)
+  + [3.1 - PyMoney Syntax Extender](#tools-pymoney)
+    + [3.1.1 - PyMoney Syntax](#tools-pymoney-money)
++ [4 - Contributing](#contributing)
++ [5 - License (MIT)](#license)
+
+</details>
+
+<a id="installation"></a>
+## 1 - Installation
 
 To install LedgerMan, run `pip install ledgerman`.
 
-## Usage
+<a id="usage"></a>
+## 2 - Usage
 
 Start by importing LedgerMan:
 
@@ -20,7 +41,8 @@ Start by importing LedgerMan:
 from ledgerman import *
 ```
 
-### Let's talk Money
+<a id="usage-money"></a>
+### 2.1 - Let's talk Money
 
 For finanial calculations, the `Money` class is very useful:
 
@@ -50,7 +72,8 @@ m - Money(20, "ETH") # ERROR - you can't add different currencies
 
 ... pretty straight forward!
 
-### Exchange Rates
+<a id="usage-exchange-rates"></a>
+### 2.2 - Exchange Rates
 
 Whenever you want to work with multiple currencies, you may want to convert them:
 
@@ -79,7 +102,8 @@ m.to("EUR") # 1612.90 EUR
 m = Money(5, "ETH") + Money(200, "EUR") # 5.62 ETH
 ```
 
-### Accounts
+<a id="usage-accounts"></a>
+### 2.3 - Accounts
 
 Likely you want to keep track of when - and why you spend your money, that is what Accounts do:
 
@@ -100,7 +124,51 @@ a -= Money(2.50, "USD")
 a.record.show()
 ```
 
-## Contributing
+<a id="tools"></a>
+## 3 - Tools
+
+LedgerMan comes with commandline utilities that help you do financial calculations:
+
+<a id="tools-pymoney"></a>
+### 3.1 - PyMoney
+
+The PyMoney tool simplifies financial calculus by extending pythons syntax.
+
+It also provides a commandline interface for you, similar to the python interpreter
+cli - run `pymoney` after [installing LedgerMan](#installation) to check it out!
+
+<a id="tools-pymoney-money"></a>
+#### 3.1.1 - The PyMoney Syntax
+
+If you feel like regular syntax ([view usage](#usage-money)) is just unnecessary, you will love the PyMoney syntax:
+
+```python
+# regular syntax:
+m = Money(5, "USD")
+
+# PyMoney syntax:
+m = 5 USD
+```
+
+To use this syntax you will write python code like you regularily would (you can use the `.py` or a `.pymoney` extension) - once it comes to executing your code, you run `pymoney [filename.py]` instead of `python [filename.py]`.
+
+You can also convert money way easier:
+```python
+# We want to add those two... but how?
+m1 = 5 USD
+m2 = 2 EUR
+
+# define a conversion rate:
+EUR => 1.17 USD
+
+m3 = m1 + m2 # 7.34 USD
+```
+
+It's incredibly simple and works with any currency (`EUR`, `BTC`, `ETH`, `CHF`, `USD`, ...). Feels very much like python - a little easier!
+
+
+<a id="contributing"></a>
+## 4 - Contributing
 
 If you somehow can't help with the development (you're busy, whatever...), make sure to [star this repository][star],
 as that helps other developers find the LedgerMan python module.
@@ -115,7 +183,8 @@ Make sure that all tests execute properly by running `nosetests` in the projects
 
 Join our [discord] to discuss the module, features, bugs and use-cases.. give some feedback or just hang out!
 
-## License
+<a id="license"></a>
+## 5 - License
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
