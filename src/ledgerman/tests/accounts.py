@@ -4,19 +4,32 @@ from ledgerman import *
 
 
 class TestAccounts(TestCase):
+    """
+    Tests related to the Account class.
+    """
+
     def test_init_empty(self):
+        """
+        Test Account().
+        """
         a = Account()
         self.assertEqual(
             a.name, "Account", "Default Account names should be 'Account'."
         )
 
     def test_init_name(self):
+        """
+        Test Account(name).
+        """
         a = Account("BankAccount")
         self.assertEqual(
             a.name, "BankAccount", "Account names should be stored properly."
         )
 
     def test_init_full(self):
+        """
+        Test Account(name, money).
+        """
         a = Account("BankAccount", Money(5000, "EUR"))
         self.assertEqual(
             a.name, "BankAccount", "Account names should be stored properly."

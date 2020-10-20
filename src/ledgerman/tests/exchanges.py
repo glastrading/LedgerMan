@@ -4,8 +4,15 @@ from ledgerman import *
 
 
 class TestExchanges(TestCase):
+    """
+    Tests related to the ExchangeRate and the Exchange class.
+    """
+
     # exchangeRate
     def test_rate_init(self):
+        """
+        Test ExchangeRate(a, b, n).
+        """
         e = ExchangeRate("A", "B", 2)
         self.assertEqual(
             e.getCurrencies(),
@@ -15,6 +22,9 @@ class TestExchanges(TestCase):
         self.assertEqual(e.rate, 2, "ExchangeRates rate should be (n) on init(a, b, n)")
 
     def test_rate_invert(self):
+        """
+        Test ExchangeRate.invert().
+        """
         e = ExchangeRate("A", "B", 5)
         e_inv = e.inverse()
         self.assertEqual(
@@ -32,6 +42,9 @@ class TestExchanges(TestCase):
         )
 
     def test_rate_convert(self):
+        """
+        Test ExchangeRate.convert(money).
+        """
         e = ExchangeRate("A", "B", 2)
         # A -> B
         m = e.convert(Money(2, "A"))
@@ -60,10 +73,16 @@ class TestExchanges(TestCase):
 
     # exchange
     def test_exchange_init_empty(self):
+        """
+        Test Exchange().
+        """
         e = Exchange()
         self.assertEqual(len(e), 0, "Exchanges should be empty on empty init.")
 
     def test_exchange_init_rates(self):
+        """
+        Test Exchange(*exchangeRates).
+        """
         # rates init
         e = Exchange(ExchangeRate("A", "B", 2), ExchangeRate("B", "C", 3))
         self.assertEqual(len(e), 2, "Exchanges should have len 2 on init(e1, e2).")
@@ -72,6 +91,9 @@ class TestExchanges(TestCase):
         self.assertEqual(len(e), 2, "Exchanges should have len 2 on init(e1, e2).")
 
     def test_exchange_convert(self):
+        """
+        Test Exchange.convert(money, currency).
+        """
         e = Exchange(["A", "B", 2], ["B", "C", 3])
         # A -> B
         m = e.convert(Money(2, "A"), "B")
