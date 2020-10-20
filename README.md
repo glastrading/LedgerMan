@@ -62,15 +62,15 @@ e # 1 EUR => 1.17 USD
 e.inverse() # 1 USD => 0.85 EUR
 
 e.convert(m) # 23.4 USD
+e * m # 24 USD (shorter conversion function)
 ```
 
 Just add common exchange rates so you can add money objects of different currencies:
 
 ```python
 # Add exchange rate
-Money.addExchangeRate(
-	ExchangeRate("EUR", "ETH", 0.0031) # from 2020-10-15
-)
+Money.addExchangeRate("EUR", "ETH", 0.0031) # from 2020-10-15
+
 Money.canConvert("EUR", "ETH") # Check: true
 
 m = Money(5, "ETH")

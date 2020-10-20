@@ -1,2 +1,2 @@
 from .money import Money
-from .exchange import ExchangeRate
+from .exchange import ExchangeRate, Exchange
