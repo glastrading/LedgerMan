@@ -24,7 +24,7 @@ Yet another python module for finance.
 
 setup(
     name="ledgerman",
-    version="0.2.0",
+    version="0.3.0",
     description="Yet another python module for finance.",
     long_description=long_description,
     classifiers=[
