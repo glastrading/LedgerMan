@@ -79,6 +79,27 @@ m.to("EUR") # 1612.90 EUR
 m = Money(5, "ETH") + Money(200, "EUR") # 5.62 ETH
 ```
 
+### Accounts
+
+Likely you want to keep track of when - and why you spend your money, that is what Accounts do:
+
+```python
+# Get yourself an account
+a = Account("MyBankAccount", "USD")
+
+# Check your balance
+a.balance # 0 USD
+
+# Put some money in there
+a += Money(50, "USD")
+
+# Buy some icecream
+a -= Money(2.50, "USD")
+
+# check the transaction record
+a.record.show()
+```
+
 ## Contributing
 
 If you somehow can't help with the development (you're busy, whatever...), make sure to [star this repository][star],
