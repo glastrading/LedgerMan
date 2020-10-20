@@ -55,14 +55,24 @@ class ExchangeRate:
 
 
 class Exchange:
-    def __init__(obj, exchangeRates=[]):
-        obj.exchangeRates = exchangeRates
+    def __init__(obj, *exchangeRates):
+        obj.exchangeRates = []
+        for exchangeRate in exchangeRates:
+            if type(exchangeRate) == ExchangeRate:
+                obj.insertExchangeRate(exchangeRate)
+            elif type(exchangeRate) in [list, tuple]:
+                obj.insertExchangeRate(*exchangeRate)
+            else:
+                raise TypeError("Unknow type for an exchangeRate.")
 
     def __repr__(obj):
-        if len(obj.exchangeRates):
+        if len(obj):
             return "{" + "; ".join([str(e) for e in obj.exchangeRates]) + "}"
         else:
             return "{ Empty Exchange }"
+
+    def __len__(obj):
+        return len(obj.exchangeRates)
 
     # checks
 
@@ -86,13 +96,11 @@ class Exchange:
 
     # modify Exchanges
 
-    def insertExchangeRate(obj, *exchangeRate):  # update / append a rate
-        if len(exchangeRate) == 1:  # rate
-            obj.exchangeRates += [exchangeRate[0]]
-        elif len(exchangeRate) == 3:  # base, other, rate
-            obj.exchangeRates += [
-                ExchangeRate(exchangeRate[0], exchangeRate[1], exchangeRate[2])
-            ]
+    def insertExchangeRate(obj, *args):  # update / append a rate
+        if len(args) == 1:  # rate
+            obj.exchangeRates += [args[0]]
+        elif len(args) == 3:  # base, other, rate
+            obj.exchangeRates += [ExchangeRate(args[0], args[1], args[2])]
         else:
             raise ValueError("Invalid exchange rate for Exchange.insertExchangeRate().")
 
