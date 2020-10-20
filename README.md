@@ -90,6 +90,8 @@ They'll likely be merged and you'll definitely get some feedback.
 Just make sure the code doesn't fail any tests and you formatted it with [the black codeformatter][code-black] (`pip install black`).
 Run `black .` to format all the code, run `pip install -e .` for a linked development installation (automatically updates your changes).
 
+Make sure that all tests execute properly by running `nosetests` in the projects `src/` directory.
+
 Join our [discord] to discuss the module, features, bugs and use-cases.. give some feedback or just hang out!
 
 ## License

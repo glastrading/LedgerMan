@@ -43,6 +43,8 @@ setup(
     entry_points={
         "console_scripts": [],
     },
+    test_suite="nose.collector",
+    tests_require=["nose"],
     include_package_data=True,
     zip_safe=False,
 )
