@@ -167,11 +167,22 @@ class Exchange:
         Append the Exchange by another ExchangeRate (tuple, list or obj).
         """
         if len(args) == 1:  # rate
-            obj.exchangeRates += [args[0]]
+            newExchangeRate = args[0]
         elif len(args) == 3:  # base, other, rate
-            obj.exchangeRates += [ExchangeRate(args[0], args[1], args[2])]
+            newExchangeRate = ExchangeRate(args[0], args[1], args[2])
         else:
             raise ValueError("Invalid exchange rate for Exchange.insertExchangeRate().")
+
+        existingRates = [exchangeRate for exchangeRate in obj.exchangeRates if newExchangeRate.getCurrencies() == exchangeRate.getCurrencies()]
+
+        if existingRates == []:
+            obj.exchangeRates += [newExchangeRate]
+        else:
+            oldExchangeRate = existingRates[0]
+            if oldExchangeRate.base == newExchangeRate.base:
+                oldExchangeRate.rate = newExchangeRate.rate
+            else:
+                oldExchangeRate.rate = 1 / newExchangeRate.rate
 
     # transform Money - unlimited steps of conversion possible :) - @finnmglas
     def exchangeRatePath(
