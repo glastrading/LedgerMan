@@ -1,13 +1,16 @@
 
 # LedgerMan :ledger:
 
-Yet another python library for finance.
+> Yet another python library for finance. Why?
+
++ LedgerMan is **comprehensive**. Check out [its usage](#usage)!
++ LedgerMan is **open, welcoming and transparent**: [join us on discord][discord]!
++ LedgerMan provides **powerful** financial tools and models.
 
 [![PyPI - Version][pypi-version-badge]][pypi]
 [![Downloads][pepi-downloads-badge]][pepy tech]
 [![Discord][discord-badge]][discord]
 [![Code style: black][code-black-badge]][code-black]
-
 
 <details>
   <summary>Table of contents</summary>

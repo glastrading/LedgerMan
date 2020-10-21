@@ -7,7 +7,7 @@ Ledgerman
 
 |PyPI - Version| |Downloads| |Discord| |Code style: black|
 
-Yet another python library for finance.
+(𝙣𝙚𝙬) Financial calculations, models and tools in a comprehensive and feature-packed python library!
 
 `Learn using the library on GitHub <https://github.com/finnmglas/ledgerman>`__ or
 `Contact Finn <https://www.finnmglas.com/contact>`__
@@ -24,7 +24,7 @@ Yet another python library for finance.
 
 setup(
     name="ledgerman",
-    version="0.3.0",
+    version="0.4.0",
     description="Yet another python library for finance.",
     long_description=long_description,
     classifiers=[
@@ -34,8 +34,8 @@ setup(
         "Intended Audience :: Financial and Insurance Industry",
         "Topic :: Office/Business :: Financial :: Accounting",
     ],
-    keywords="accounting finance manager money library ledger ledgerman",
-    url="http://github.com/finnmglas/ledgerman",
+    keywords="accounting finance manager money library ledger ledgerman crypto",
+    url="http://github.com/finnmglas/LedgerMan",
     author="Finn M Glas",
     author_email="finn@finnmglas.com",
     license="MIT",
