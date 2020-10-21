@@ -1,3 +1,6 @@
+from .fetch import ExchangeRateFetcher
+
+
 class Money:
     """
     Money has an amount and a currency. It is a core type to be acted upon.
@@ -33,6 +36,14 @@ class Money:
         """
         Money.ensureExchangeExists()
         return Money.exchange.canConvert(base, other)
+
+    @staticmethod
+    def fetchRates(source="ecb", verbose=False):
+        """
+        Fetch ExchangeRates from a source api.
+        """
+        for e in ExchangeRateFetcher.fetch(source, verbose):
+            Money.addExchangeRate(*e)
 
     def to(obj, currency):
         """

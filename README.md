@@ -102,16 +102,15 @@ m.to("EUR") # 1612.90 EUR
 m = Money(5, "ETH") + Money(200, "EUR") # 5.62 ETH
 ```
 
-You can also fetch exchange rates from [exchangeratesapi.io](https://exchangeratesapi.io):
+You can also fetch exchange rates from the European Central Bank (see [their data](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)):
 
 ```python
-fetch_exchangeratesapi()
+Money.fetchRates() # you can set verbose=True to print all rates.
 
 1 EUR + 1 CHF - 1 USD # 1.0857478268531873 EUR
 ```
 
-Note that those values are provided by the European Central Bank (see [their data](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)) and
-updated only once per day.
+Note that those values are updated only once per day.
 
 <a id="usage-accounts"></a>
 ### 2.3 - Accounts
