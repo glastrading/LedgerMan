@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1280"
+   height="640"
+   viewBox="0 0 338.66666 169.33334"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="logo.svg">
+  <defs
+     id="defs2">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath4586">
+      <use
+         x="0"
+         y="0"
+         xlink:href="#g4582"
+         id="use4588"
+         width="100%"
+         height="100%" />
+    </clipPath>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="688.93503"
+     inkscape:cy="287.21014"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showborder="true"
+     inkscape:showpageshadow="false"
+     borderlayer="false"
+     inkscape:pagecheckerboard="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-127.66664)">
+    <rect
+       style="fill:#002b36;fill-opacity:1;stroke:none;stroke-width:2.54291034;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+       id="rect826"
+       width="338.66666"
+       height="169.33333"
+       x="0"
+       y="127.66665" />
+    <g
+       id="g4584"
+       clip-path="url(#clipPath4586)"
+       transform="translate(0,39.687478)">
+      <g
+         inkscape:label="Clip"
+         id="g4582">
+        <text
+           transform="scale(1.0092609,0.99082409)"
+           id="text860"
+           y="174.89841"
+           x="39.875648"
+           style="font-style:normal;font-weight:normal;font-size:10.38771725px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.25969297"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:24.93052292px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu Medium';fill:#ffffff;fill-opacity:1;stroke-width:0.25969297"
+             y="174.89841"
+             x="39.875648"
+             id="tspan858"
+             sodipodi:role="line">LedgerMan</tspan></text>
+        <text
+           transform="scale(0.98471685,1.0155204)"
+           id="text873"
+           y="186.00507"
+           x="43.011391"
+           style="font-style:normal;font-weight:normal;font-size:10.7686224px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26921555"
+           xml:space="preserve"><tspan
+             style="fill:#ffff00;fill-opacity:1;stroke-width:0.26921555"
+             y="186.00507"
+             x="43.011391"
+             id="tspan871"
+             sodipodi:role="line">Yet another python library for finance.</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>
