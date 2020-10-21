@@ -18,6 +18,8 @@ Yet another python library for finance.
 + [2 - Usage](#usage)
   + [2.1 - Money](#usage-money)
   + [2.2 - Exchange Rates](#usage-exchange-rates)
+    + [2.2.1 - How to exchange](#usage-exchange-howto)
+    + [2.2.2 - Fetching exchange-rates from APIs](#usage-exchange-api)
   + [2.3 - Accounts](#usage-accounts)
 + [3 - Tools](#tools)
   + [3.1 - PyMoney Syntax Extender](#tools-pymoney)
@@ -75,6 +77,9 @@ m - Money(20, "ETH") # ERROR - you can't add different currencies
 <a id="usage-exchange-rates"></a>
 ### 2.2 - Exchange Rates
 
+<a id="usage-exchange-howto"></a>
+#### 2.2.1 - Exchanging Money
+
 Whenever you want to work with multiple currencies, you may want to convert them:
 
 ```python
@@ -102,15 +107,37 @@ m.to("EUR") # 1612.90 EUR
 m = Money(5, "ETH") + Money(200, "EUR") # 5.62 ETH
 ```
 
-You can also fetch exchange rates from the European Central Bank (see [their data](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)):
+<a id="usage-exchange-api"></a>
+#### 2.2.2 - Fetching Exchange-Rates from an API
+
+You can fetch exchange rates from the following APIs:
+
+| api | assets | refresh-rates |
+|-|-|-|
+| [ECB](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html) (European Central Bank) | Common currencies - `USD`, `JPY`, `BGN`, `CZK`, `DKK`, `GBP`, `HUF`, `PLN`, `RON`, `SEK`, `CHF`, `ISK`, `NOK`, `HRK`, `RUB`, `TRY`, `AUD`, `BRL`, `CAD`, `CNY`, `HKD`, `IDR`, `ILS`, `INR`, `KRW`, `MXN`, `MYR`, `NZD`, `PHP`, `SGD`, `THB`, `ZAR` | daily around 16:30 |
+| [CoinGecko](https://www.coingecko.com/en) | Common crypto - `eth`, `btc`, `ltc`, `trx`, `usdt`, `xrp`, `link`, `best`, `pan`, `miota`, `ada`, `vet`, `omg`, `neo`, `qtum`, `xem`, `xtz`, `yfi`, `chz`, `xlm`, `ont`, `bch`, `usdc`, `eos`, `uni`, `waves`, `atom`, `dot`, `snx`, `dash`, `zrx`, `bat`, `kmd`, `etc`, `doge`, `zec`, `rep`, `lsk`, `comp`, `mkr` | every few seconds |
+
+Fetch rates from an API and just use the fetched conversions implicitly when doing money operations (`+ - * /`):
 
 ```python
-Money.fetchRates() # you can set verbose=True to print all rates.
+# default: European Central Bank
+Money.fetchRates()
 
-1 EUR + 1 CHF - 1 USD # 1.0857478268531873 EUR
+# fetch from the European Central Bank
+Money.fetchRates("ecb")
+
+m = Money(5, "EUR") + Money(5, "USD") + Money(5, "CHF") # no error
+
+# fetch crypto from CoinGecko
+Money.fetchRates("coingecko")
+
+m = Money(5, "EUR") + Money(2, "ETH") + Money(10, "LTC") # no error
+
+# will print all fetched rates (ecb)
+Money.fetchRates(verbose=True)
 ```
 
-Note that those values are updated only once per day.
+Note that the APIs may not be reliable all the time and that you will need a network connection.
 
 <a id="usage-accounts"></a>
 ### 2.3 - Accounts
