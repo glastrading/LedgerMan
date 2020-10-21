@@ -107,6 +107,11 @@ m.to("EUR") # 1612.90 EUR
 m = Money(5, "ETH") + Money(200, "EUR") # 5.62 ETH
 ```
 
+The more exchange rates you add, the more conversions you can perform - LedgerMan
+also supports **implicit conversions through any level of exchange rates**. This
+means that by defining a `BTC` to `EUR` and a `EUR` to `USD` ExchangeRate, you
+will be able to add `BTC` and `USD` objects and convert them on the fly too!
+
 <a id="usage-exchange-api"></a>
 #### 2.2.2 - Fetching Exchange-Rates from an API
 
