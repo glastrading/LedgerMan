@@ -7,7 +7,7 @@ Ledgerman
 
 |PyPI - Version| |Downloads| |Discord| |Code style: black|
 
-Yet another python module for finance.
+Yet another python library for finance.
 
 `Learn using the library on GitHub <https://github.com/finnmglas/ledgerman>`__ or
 `Contact Finn <https://www.finnmglas.com/contact>`__
@@ -25,7 +25,7 @@ Yet another python module for finance.
 setup(
     name="ledgerman",
     version="0.3.0",
-    description="Yet another python module for finance.",
+    description="Yet another python library for finance.",
     long_description=long_description,
     classifiers=[
         "Development Status :: 3 - Alpha",

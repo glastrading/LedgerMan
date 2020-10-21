@@ -1,7 +1,7 @@
 
 # LedgerMan :ledger:
 
-Yet another python module for finance.
+Yet another python library for finance.
 
 [![PyPI - Version][pypi-version-badge]][pypi]
 [![Downloads][pepi-downloads-badge]][pepy tech]
@@ -61,8 +61,8 @@ m += 5
 m += Money(5)
 
 m /= 2
-m -=
-m == 15 # true
+m -= 5
+m == 10 # true
 
 if m:
   print("We're rich!") # will be printed
