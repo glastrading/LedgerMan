@@ -43,6 +43,7 @@ setup(
     entry_points={
         "console_scripts": ["pymoney=ledgerman.tools:PyMoney.main"],
     },
+    install_requires=["requests"],
     test_suite="nose.collector",
     tests_require=["nose"],
     include_package_data=True,
