@@ -31,6 +31,8 @@
     + [3.2.1 - The PyMoney Syntax](#tools-pymoney-syntax)
     + [3.2.1 - Running PyMoney](#tools-pymoney-run)
 + [4 - Contributing](#contributing) :octocat:
+  + [4.1 - Contributing Code](#contributing-code)
+  + [4.2 - Developing LedgerMan](#contributing-dev)
 + [5 - License:](#license) [MIT]
 
 </details>
@@ -254,18 +256,41 @@ _<sub>[`back to overview`][contents] or [`view all tools`](#tools)</sub>_
 <a id="contributing"></a>
 ## 4 - Contributing :octocat:
 
-If you somehow can't help with the development (you're busy, whatever...), make sure to [star this repository][star],
-as that helps other developers find the LedgerMan python module.
+If you somehow can't help with the development (you're busy, whatever...), make sure to ***star this repository***, as that helps other developers find LedgerMan:
 
-Just [fork] this repository, change something and submit a pull request!
-They'll likely be merged and you'll definitely get some feedback.
+[![][shield-star]][star]
 
-Just make sure the code doesn't fail any tests and you formatted it with [the black codeformatter][code-black] (`pip install black`).
-Run `black .` to format all the code, run `pip install -e .` for a linked development installation (automatically updates your changes).
+<a id="contributing-code"></a>
+### 4.1 - How to contribute Code
 
-Make sure that all tests execute properly by running `nosetests` in the projects `src/` directory.
+1. **Fork** this repository:<br><br>[![][shield-fork]][fork]
 
-Join our [discord] to discuss the module, features, bugs and use-cases.. give some feedback or just hang out!
+2. **Change**, fix or implement something.
+
+4. Submit a **pull request**.
+
+5. They'll likely be **merged** and you'll definitely get some **feedback**.
+
+<a id="contributing-dev"></a>
+### 4.2 - Developing LedgerMan
+
+**Community:**
+
+Join our [discord] to **discuss** the module, features, bugs and use-cases... give some feedback, **say hi** before contributing or just **hang out** there!
+
+**Setup:**
+
+Run `pip install -e .` in LedgerMan's `src/` directory for a linked development installation. It automatically updates your changes which is necessary for the real-time development of LedgerMan.
+
+**Automated tests:**
+
++ Make sure to always run `nosetests` (in the projects `src/` directory) before commiting changes.
++ If you develop a new feature, you will have to implement new tests.
+
+**Code formatting:**
+
++ We use the [black codeformatter][code-black] (`pip install black`).
++ Run `black .` to format all of LedgerMan's Python code.
 
 _<sub>[`back to overview`][contents], [`contact Finn`][contact] or [`sponsor this project ❤️`][sponsor]</sub>_
 <a id="license"></a>
@@ -292,6 +317,9 @@ _<sub>[`back to overview`][contents], [`contact Finn`][contact] or [`sponsor thi
   [newissue]: https://github.com/finnmglas/ledgerman/issues/new/choose
   [fork]: https://github.com/finnmglas/ledgerman/fork
   [star]: https://github.com/finnmglas/ledgerman/stargazers
+  [shield-star]: https://img.shields.io/github/stars/finnmglas/LedgerMan?label=Star&style=social
+
+  [shield-fork]: https://img.shields.io/github/forks/finnmglas/LedgerMan?label=Fork&style=social
 
 <!-- Python Package -->
   [pypi]: https://pypi.org/project/ledgerman/
