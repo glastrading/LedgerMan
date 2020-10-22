@@ -173,7 +173,11 @@ class Exchange:
         else:
             raise ValueError("Invalid exchange rate for Exchange.insertExchangeRate().")
 
-        existingRates = [exchangeRate for exchangeRate in obj.exchangeRates if newExchangeRate.getCurrencies() == exchangeRate.getCurrencies()]
+        existingRates = [
+            exchangeRate
+            for exchangeRate in obj.exchangeRates
+            if newExchangeRate.getCurrencies() == exchangeRate.getCurrencies()
+        ]
 
         if existingRates == []:
             obj.exchangeRates += [newExchangeRate]

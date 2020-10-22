@@ -19,16 +19,20 @@
 ## Table of contents
 
 + [1 - Installation](#installation) :arrow_down:
-+ [2 - Usage](#usage)
++ [2 - Using the Library](#usage)
   + [2.1 - Money](#usage-money) :heavy_dollar_sign:
   + [2.2 - Exchange Rates](#usage-exchange-rates) :currency_exchange:
     + [2.2.1 - How to exchange](#usage-exchange-howto)
     + [2.2.2 - Fetching exchange-rates from APIs](#usage-exchange-api) :arrows_clockwise:
   + [2.3 - Accounts](#usage-accounts) :bank:
-+ [3 - Tools](#tools)
-  + [3.1 - PyMoney Syntax Extender](#tools-pymoney)
-    + [3.1.1 - PyMoney Syntax](#tools-pymoney-money)
++ [3 - LedgerMan Tools](#tools) :toolbox:
+  + [3.1 - LedgerMan to convert currencies](#tools-convert)
+  + [3.2 - PyMoney Syntax Extender](#tools-pymoney)
+    + [3.2.1 - The PyMoney Syntax](#tools-pymoney-syntax)
+    + [3.2.1 - Running PyMoney](#tools-pymoney-run)
 + [4 - Contributing](#contributing) :octocat:
+  + [4.1 - Contributing Code](#contributing-code)
+  + [4.2 - Developing LedgerMan](#contributing-dev)
 + [5 - License:](#license) [MIT]
 
 </details>
@@ -176,23 +180,46 @@ a.record.show()
 
 _<sub>[`back to overview`][contents]</sub>_
 <a id="tools"></a>
-## 3 - Tools
+## 3 - LedgerMan Tools :toolbox:
 
-LedgerMan comes with commandline utilities that help you do financial calculations:
+LedgerMan implements **commandline utilities** that will help you do financial calculations.
 
-<a id="tools-pymoney"></a>
-### 3.1 - PyMoney
+After [installing LedgerMan](#installation), you will be able to run the `ledgerman` command. Its general syntax is `legdgerman [tool] (arguments)`, while some tools have an alias command that abbreviates the syntax to `[tool] (arguments)`.
 
-The PyMoney tool simplifies financial calculus by extending pythons syntax.
+The following sections discuss the specific **tools provided by LedgerMan**:
 
-It also provides a commandline interface for you, similar to the python interpreter
-cli - run `pymoney` after [installing LedgerMan](#installation) to check it out!
+| :wrench: | helps you with | command | alias |
+|-|-|-|-|
+| [**LedgerMan Convert**](#tools-convert) | Quick currency conversions from the commandline. | `ledgerman convert` | - |
+| [**PyMoney Syntax Extension**](#tools-pymoney) | Runs `.pymoney` type files in which you can use LedgerMan types with more comprehensive syntax (like `money = 1 EUR`). | `ledgerman run` | `pymoney` |
+| :wrench: | ***More tools coming soon!*** | :wrench: | :wrench: |
 
 _<sub>[`back to overview`][contents]</sub>_
-<a id="tools-pymoney-money"></a>
-#### 3.1.1 - The PyMoney Syntax
+<a id="tools-convert"></a>
+### 3.1 - LedgerMan Convert
 
-If you feel like regular syntax ([view usage](#usage-money)) is just unnecessary, you will love the PyMoney syntax:
+LedgerMan Convert is a tool to convert between currencies. It fetches currencies from all [available APIs](#usage-exchange-api) and uses those for conversions.
+
+| use case | syntax | example |
+|-|-|-|
+| Get an exchange rate: | `ledgerman convert [src] [dest]` | `ledgerman convert EUR BTC` |
+| Fetch and print all available exchange rates: | `ledgerman convert --rates` | - |
+| Convert to a specific currency: | `ledgerman convert [expression] [dest]` | `ledgerman convert "2.2 BTC" USD` |
+| Add / subtract multiple currencies through automatic conversion (result will be in the first used currency): | `ledgerman convert [expression]` | `ledgerman convert "1 BTC + 200 EUR"` |
+| Learn more or get help: | `ledgerman convert -h` | - |
+
+_<sub>[`back to overview`][contents] or [`view all tools`](#tools)</sub>_
+<a id="tools-pymoney"></a>
+### 3.2 - PyMoney syntax extension
+
+> Finance is complex enough, why bother with complex syntax?
+
+The PyMoney tool simplifies financial calculus by extending Pythons syntax to what we call the [PyMoney syntax](#tools-pymoney-syntax). It can be interpreted using the `ledgerman run` or the `pymoney` command.
+
+<a id="tools-pymoney-syntax"></a>
+#### 3.2.1 - The PyMoney Syntax
+
+If you feel like regular syntax ([view usage](#usage-money)) is just unnecessary complex, you will love the PyMoney syntax:
 
 ```python
 # regular syntax:
@@ -202,9 +229,7 @@ m = Money(5, "USD")
 m = 5 USD
 ```
 
-To use this syntax you will write python code like you regularily would (you can use the `.py` or a `.pymoney` extension) - once it comes to executing your code, you run `pymoney [filename.py]` instead of `python [filename.py]`.
-
-You can also convert money way easier:
+You can also convert money between currencies way easier:
 ```python
 # We want to add those two... but how?
 m1 = 5 USD
@@ -216,24 +241,56 @@ EUR => 1.17 USD
 m3 = m1 + m2 # 7.34 USD
 ```
 
-It's incredibly simple and works with any currency (`EUR`, `BTC`, `ETH`, `CHF`, `USD`, ...). Feels very much like python - a little easier!
+It's incredibly simple and works with any currency (`EUR`, `BTC`, `ETH`, `CHF`, `USD`, ...). Feels very much like python - less complex.
 
-_<sub>[`back to overview`][contents]</sub>_
+<a id="tools-pymoney-run"></a>
+#### 3.2.2 - Running PyMoney code and files
+
+To use the PyMoney syntax you will write python code like you regularily would. You can use the `.py` or a `.pymoney` extension, or whatever else you like.
+
+Once it comes to executing your code, you'll use `ledgerman run [filename]` or the shorter alias `pymoney [filename]`.
+
+It also provides an **interactive commandline shell** for you, similar to the Python Interpreter Shell - run `ledgerman run` or its alias `pymoney` without specifying a file.
+
+_<sub>[`back to overview`][contents] or [`view all tools`](#tools)</sub>_
 <a id="contributing"></a>
 ## 4 - Contributing :octocat:
 
-If you somehow can't help with the development (you're busy, whatever...), make sure to [star this repository][star],
-as that helps other developers find the LedgerMan python module.
+If you somehow can't help with the development (you're busy, whatever...), make sure to ***star this repository***, as that helps other developers find LedgerMan:
 
-Just [fork] this repository, change something and submit a pull request!
-They'll likely be merged and you'll definitely get some feedback.
+[![][shield-star]][star]
 
-Just make sure the code doesn't fail any tests and you formatted it with [the black codeformatter][code-black] (`pip install black`).
-Run `black .` to format all the code, run `pip install -e .` for a linked development installation (automatically updates your changes).
+<a id="contributing-code"></a>
+### 4.1 - How to contribute Code
 
-Make sure that all tests execute properly by running `nosetests` in the projects `src/` directory.
+1. **Fork** this repository:<br><br>[![][shield-fork]][fork]
 
-Join our [discord] to discuss the module, features, bugs and use-cases.. give some feedback or just hang out!
+2. **Change**, fix or implement something.
+
+4. Submit a **pull request**.
+
+5. They'll likely be **merged** and you'll definitely get some **feedback**.
+
+<a id="contributing-dev"></a>
+### 4.2 - Developing LedgerMan
+
+**Community:**
+
+Join our [discord] to **discuss** the module, features, bugs and use-cases... give some feedback, **say hi** before contributing or just **hang out** there!
+
+**Setup:**
+
+Run `pip install -e .` in LedgerMan's `src/` directory for a linked development installation. It automatically updates your changes which is necessary for the real-time development of LedgerMan.
+
+**Automated tests:**
+
++ Make sure to always run `nosetests` (in the projects `src/` directory) before commiting changes.
++ If you develop a new feature, you will have to implement new tests.
+
+**Code formatting:**
+
++ We use the [black codeformatter][code-black] (`pip install black`).
++ Run `black .` to format all of LedgerMan's Python code.
 
 _<sub>[`back to overview`][contents], [`contact Finn`][contact] or [`sponsor this project ❤️`][sponsor]</sub>_
 <a id="license"></a>
@@ -260,6 +317,9 @@ _<sub>[`back to overview`][contents], [`contact Finn`][contact] or [`sponsor thi
   [newissue]: https://github.com/finnmglas/ledgerman/issues/new/choose
   [fork]: https://github.com/finnmglas/ledgerman/fork
   [star]: https://github.com/finnmglas/ledgerman/stargazers
+  [shield-star]: https://img.shields.io/github/stars/finnmglas/LedgerMan?label=Star&style=social
+
+  [shield-fork]: https://img.shields.io/github/forks/finnmglas/LedgerMan?label=Fork&style=social
 
 <!-- Python Package -->
   [pypi]: https://pypi.org/project/ledgerman/
