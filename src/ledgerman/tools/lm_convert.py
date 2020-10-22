@@ -2,6 +2,9 @@
 
 import argparse, sys
 
+from ledgerman import *
+from .lm_run import PyMoney
+
 
 class LedgerManConvert:
     """
@@ -46,7 +49,56 @@ class LedgerManConvert:
             LedgerManConvert.generateParser()
             args = LedgerManConvert.parser.parse_args(sys.argv[1:])
 
-        print(args.rates)
+        # fetch
+        Money.fetchRates("ecb")  # European Central Bank
+        Money.fetchRates("coingecko")  # Crypto
+
+        # interpret
+        if args.rates:  # ledgerman convert --rates
+            for rate in Money.exchange.exchangeRates:
+                print(rate)
+            exit()
+
+        if args.expression:
+            if (
+                len(args.expression.split(" ")) == 1
+                and args.expression.upper() == args.expression
+            ):
+                args.expression = "1 " + args.expression
+
+            try:
+                expression = PyMoney.evaluate(args.expression, globals())
+            except SyntaxError:
+                LedgerManConvert.error(
+                    "SyntaxError in expression '" + args.expression + "'."
+                )
+            except:
+                LedgerManConvert.error(
+                    "Unexpected expression '" + args.expression + "'."
+                )
+
+        if args.currency:
+            if len(args.currency.split(" ")) == 1:
+                currency = args.currency
+            else:
+                LedgerManConvert.error(
+                    "Unrecognized destination currency: '" + args.currency + "'."
+                )
+
+            try:
+                print(
+                    args.expression, "=", Money.exchange.convert(expression, currency)
+                )
+            except ValueError:
+                LedgerManConvert.error(
+                    "Can't convert '"
+                    + args.expression
+                    + "' to '"
+                    + args.currency
+                    + "'."
+                )
+        else:
+            print(expression)
 
 
 if __name__ == "__main__":

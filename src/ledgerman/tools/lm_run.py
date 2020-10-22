@@ -99,18 +99,18 @@ class PyMoney:
                 print(e)
 
     @staticmethod
-    def evaluate(code):
+    def evaluate(code, glob=globals()):
         """
         Evaluate code with PyMoney syntax (shell).
         """
-        return eval(PyMoney.convert(code), globals())
+        return eval(PyMoney.convert(code), glob)
 
     @staticmethod
-    def execute(code):
+    def execute(code, glob=globals()):
         """
         Execute code with PyMoney syntax.
         """
-        return exec(PyMoney.convert(code), globals())
+        return exec(PyMoney.convert(code), glob)
 
     @staticmethod
     def convert(code):
