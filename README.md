@@ -1,7 +1,7 @@
 
 # LedgerMan :ledger:
 
-> Yet another python library for finance. Why?
+> Yet another python library for finance. ***Why?***
 
 + LedgerMan is **comprehensive**. Check out [its usage](#usage)!
 + LedgerMan is **open, welcoming and transparent**: [join us on discord][discord]!
@@ -12,23 +12,24 @@
 [![Discord][discord-badge]][discord]
 [![Code style: black][code-black-badge]][code-black]
 
+<a id="contents"></a>
 <details>
-  <summary>Table of contents</summary>
+  <summary>Overview</summary>
 
 ## Table of contents
 
-+ [1 - Installation](#installation)
++ [1 - Installation](#installation) :arrow_down:
 + [2 - Usage](#usage)
-  + [2.1 - Money](#usage-money)
-  + [2.2 - Exchange Rates](#usage-exchange-rates)
+  + [2.1 - Money](#usage-money) :heavy_dollar_sign:
+  + [2.2 - Exchange Rates](#usage-exchange-rates) :currency_exchange:
     + [2.2.1 - How to exchange](#usage-exchange-howto)
-    + [2.2.2 - Fetching exchange-rates from APIs](#usage-exchange-api)
-  + [2.3 - Accounts](#usage-accounts)
+    + [2.2.2 - Fetching exchange-rates from APIs](#usage-exchange-api) :arrows_clockwise:
+  + [2.3 - Accounts](#usage-accounts) :bank:
 + [3 - Tools](#tools)
   + [3.1 - PyMoney Syntax Extender](#tools-pymoney)
     + [3.1.1 - PyMoney Syntax](#tools-pymoney-money)
-+ [4 - Contributing](#contributing)
-+ [5 - License (MIT)](#license)
++ [4 - Contributing](#contributing) :octocat:
++ [5 - License:](#license) [MIT]
 
 </details>
 
@@ -46,8 +47,9 @@ Start by importing LedgerMan:
 from ledgerman import *
 ```
 
+_<sub>[`back to overview`][contents]</sub>_
 <a id="usage-money"></a>
-### 2.1 - Let's talk Money
+### 2.1 - Let's talk Money :heavy_dollar_sign:
 
 For finanial calculations, the `Money` class is very useful:
 
@@ -77,8 +79,9 @@ m - Money(20, "ETH") # ERROR - you can't add different currencies
 
 ... pretty straight forward!
 
+_<sub>[`back to overview`][contents]</sub>_
 <a id="usage-exchange-rates"></a>
-### 2.2 - Exchange Rates
+### 2.2 - Exchange Rates :currency_exchange:
 
 <a id="usage-exchange-howto"></a>
 #### 2.2.1 - Exchanging Money
@@ -115,8 +118,9 @@ also supports **implicit conversions through any level of exchange rates**. This
 means that by defining a `BTC` to `EUR` and a `EUR` to `USD` ExchangeRate, you
 will be able to add `BTC` and `USD` objects and convert them on the fly too!
 
+_<sub>[`back to overview`][contents]</sub>_
 <a id="usage-exchange-api"></a>
-#### 2.2.2 - Fetching Exchange-Rates from an API
+#### 2.2.2 - Fetching Exchange-Rates from an API :arrows_clockwise:
 
 You can fetch exchange rates from the following APIs:
 
@@ -147,8 +151,9 @@ Money.fetchRates(verbose=True)
 
 Note that the APIs may not be reliable all the time and that you will need a network connection.
 
+_<sub>[`back to overview`][contents]</sub>_
 <a id="usage-accounts"></a>
-### 2.3 - Accounts
+### 2.3 - Accounts :bank:
 
 Likely you want to keep track of when - and why you spend your money, that is what Accounts do:
 
@@ -169,6 +174,7 @@ a -= Money(2.50, "USD")
 a.record.show()
 ```
 
+_<sub>[`back to overview`][contents]</sub>_
 <a id="tools"></a>
 ## 3 - Tools
 
@@ -182,6 +188,7 @@ The PyMoney tool simplifies financial calculus by extending pythons syntax.
 It also provides a commandline interface for you, similar to the python interpreter
 cli - run `pymoney` after [installing LedgerMan](#installation) to check it out!
 
+_<sub>[`back to overview`][contents]</sub>_
 <a id="tools-pymoney-money"></a>
 #### 3.1.1 - The PyMoney Syntax
 
@@ -211,9 +218,9 @@ m3 = m1 + m2 # 7.34 USD
 
 It's incredibly simple and works with any currency (`EUR`, `BTC`, `ETH`, `CHF`, `USD`, ...). Feels very much like python - a little easier!
 
-
+_<sub>[`back to overview`][contents]</sub>_
 <a id="contributing"></a>
-## 4 - Contributing
+## 4 - Contributing :octocat:
 
 If you somehow can't help with the development (you're busy, whatever...), make sure to [star this repository][star],
 as that helps other developers find the LedgerMan python module.
@@ -228,14 +235,33 @@ Make sure that all tests execute properly by running `nosetests` in the projects
 
 Join our [discord] to discuss the module, features, bugs and use-cases.. give some feedback or just hang out!
 
+_<sub>[`back to overview`][contents], [`contact Finn`][contact] or [`sponsor this project ❤️`][sponsor]</sub>_
 <a id="license"></a>
 ## 5 - License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT License. Copyright 2020 Finn M Glas.][MIT]
 
+_<sub>[`back to overview`][contents], [`contact Finn`][contact] or [`sponsor this project ❤️`][sponsor]</sub>_
+
+<!-- Navigation -->
+  [contents]: #contents
+
+<!-- Finns owned media -->
+  [contact]: https://contact.finnmglas.com
+  [sponsor]: https://sponsor.finnmglas.com
+
+<!-- Community -->
   [discord]: https://discord.com/invite/BsZXaur
   [discord-badge]: https://img.shields.io/badge/discord-join%20chat-000
 
+<!-- GitHub related -->
+
+  [joingh]: https://github.com/join
+  [newissue]: https://github.com/finnmglas/ledgerman/issues/new/choose
+  [fork]: https://github.com/finnmglas/ledgerman/fork
+  [star]: https://github.com/finnmglas/ledgerman/stargazers
+
+<!-- Python Package -->
   [pypi]: https://pypi.org/project/ledgerman/
   [pypi-version-badge]: https://img.shields.io/pypi/v/ledgerman?color=000
 
@@ -245,7 +271,5 @@ Join our [discord] to discuss the module, features, bugs and use-cases.. give so
   [code-black]: https://github.com/psf/black
   [code-black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 
-  [joingh]: https://github.com/join
-  [newissue]: https://github.com/finnmglas/ledgerman/issues/new/choose
-  [fork]: https://github.com/finnmglas/ledgerman/fork
-  [star]: https://github.com/finnmglas/ledgerman/stargazers
+<!-- Legal -->
+  [MIT]: https://choosealicense.com/licenses/mit/
