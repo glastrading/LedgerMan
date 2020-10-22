@@ -35,7 +35,7 @@ LedgerMan
 
 setup(
     name="ledgerman",
-    version="0.5.0",
+    version="0.5.1",
     description="The python library for finance.",
     long_description=long_description,
     classifiers=[
@@ -57,7 +57,7 @@ setup(
             "ledgerman=ledgerman.tools:LedgerMan.main",
         ],
     },
-    install_requires=["requests", "argparse", "re"],
+    install_requires=["requests", "argparse"],
     test_suite="nose.collector",
     tests_require=["nose"],
     include_package_data=True,

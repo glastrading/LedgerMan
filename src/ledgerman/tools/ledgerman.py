@@ -31,6 +31,7 @@ class LedgerMan:
         subparsers = LedgerMan.parser.add_subparsers(
             dest="tool", help="LedgerMan tools"
         )
+        subparsers.required = True
 
         for name in LedgerMan.tools:
             tool = LedgerMan.tools[name]
