@@ -52,7 +52,10 @@ setup(
     license="MIT",
     packages=["ledgerman"],
     entry_points={
-        "console_scripts": ["pymoney=ledgerman.tools:PyMoney.main"],
+        "console_scripts": [
+            "pymoney=ledgerman.tools:PyMoney.main",
+            "ledgerman=ledgerman.tools:LedgerMan.main",
+        ],
     },
     install_requires=["requests"],
     test_suite="nose.collector",

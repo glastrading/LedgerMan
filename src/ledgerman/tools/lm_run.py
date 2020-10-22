@@ -10,8 +10,8 @@ except:
 
 class PyMoney:
     """
-    PyMoney is a Python syntax extender and commandline tool.
-    It is used to simplify financial calculus using the ledgerman module.
+    'ledgerman run' / 'pymoney' is a commandline tool, that extends pythons syntax
+    to simplify financial calculations using the LedgerMan Python module.
     """
 
     class regex:
@@ -25,41 +25,62 @@ class PyMoney:
         money = num + white + currency
 
     @staticmethod
-    def parse_args(argv):
-        """
-        Parse the commandline arguments for the PyMoney tool.
-        """
-        parser = argparse.ArgumentParser(
-            description="Execute PyMoney-extended python code."
-        )
-        parser.add_argument(
-            "file", nargs="?", default=None, help="A pymoney file to execute."
-        )
-
-        return parser.parse_args(argv)
+    def error(e):
+        PyMoney.parser.error(e)
 
     @staticmethod
-    def main():
-        args = PyMoney.parse_args(sys.argv[1:])
+    def generateParser():
+        """
+        Generate the ArgumentParser for 'pymoney'.
+        """
+        PyMoney.parser = argparse.ArgumentParser(
+            prog="ledgerman run",
+            description="Execute PyMoney-syntax-extended python code.",
+            epilog="More details at https://github.com/finnmglas/LedgerMan#tools-pymoney-syntax",
+        )
+        PyMoney.parser.add_argument(
+            "script", nargs="?", default=None, help="A PyMoney script to execute."
+        )
 
-        if args.file == None:
+        return PyMoney.parser
+
+    @staticmethod
+    def main(args=None):
+        """
+        The main program of 'pymoney'.
+        """
+        if args == None:  # parse args using own parser
+            PyMoney.generateParser()
+            args = PyMoney.parser.parse_args(sys.argv[1:])
+
+        # main
+        if args.script == None:
             PyMoney.runShell()
-        else:
-            try:
-                f = open(args.file)
-            except FileNotFoundError:
-                print("File not found.")
-                exit()
-            code = f.read()
-            f.close()
-            PyMoney.execute(code)
+            return
 
+        try:
+            f = open(args.script)
+        except FileNotFoundError:
+            print("File not found.")
+            exit()
+
+        code = f.read()
+        f.close()
+        PyMoney.execute(code)
+
+    # PyMoney functions
+
+    @staticmethod
     def runShell():
+        """
+        Run a PyMoney shell loop.
+        """
         PyMoney.execute("from ledgerman import *")
 
         shouldRun = True
         print(
-            "Welcome to the PyMoney Shell by @finnmglas\nDetails at https://github.com/finnmglas/ledgerman"
+            "Welcome to the PyMoney Shell by @finnmglas\n"
+            + "Details at https://github.com/finnmglas/ledgerman"
         )
         while shouldRun:
             try:
