@@ -3,69 +3,34 @@
 [![Discord][discord-badge]][discord]
 [![Code style: black][code-black-badge]][code-black]
 
-# LedgerMan :ledger:
+# LedgerMan
 
-> Yet another python library for finance. ***Why?***
+LedgerMan is a feature-packed, **comprehensive** Python library for accounting and financial calculations, implementing **useful models** and **powerful tools**.
 
-+ LedgerMan is **comprehensive**.
-+ LedgerMan is **open and transparent**.
-+ LedgerMan provides **powerful** financial tools and models.
+It is still an alpha-version though.
 
-<a id="installation"></a>
 ## Installation
 
 To install LedgerMan, run `pip install ledgerman`.
 
-<a id="usage"></a>
 ## Usage
 
-Start by importing LedgerMan:
+You can import all LedgerMan classes using:
 
 ```python
 from ledgerman import *
 ```
 
-Example - convert EUR to USD:
+## About
 
-```python
-Money.fetchRates() # from the European Central Bank
+LedgerMan's source code is hosted [on GitHub](https://github.com/finnmglas/LedgerMan), the Python module [on PyPI][pypi] and its docs on [readthedocs](https://ledgerman.readthedocs.io). It is provided under the MIT license.
 
-m = Money(10, "EUR")
-print(m.to("USD")) # convert currencies
-```
-
-Check out our [**documentation**](https://ledgerman.readthedocs.io) to learn more.
-
-<a id="contributing"></a>
-## Contributing :octocat:
-
-If you can't help with the development (you're busy, whatever...), make sure to ***star this repository***, as that helps other developers find LedgerMan:
-
-[![][shield-star]][star]
-
-You can also join our [discord]!
-
-<a id="contributing-code"></a>
-### Contributing Code
-
-+ **Fork** this repository:
-<br><p style="margin-left:30px;">[![][shield-fork]][fork]</p>
-+ **Set up** the environment:<p>Run `pip install -e .` in LedgerMan's `src/` for a development installation.</p>
-+ **Change**, fix or implement something.<p>Tests: Make sure to always run `nosetests` (in the projects `src/` directory) before commiting. We also use the [black codeformatter][code-black] (`pip install black`) - run `black .`</p>
-+ Submit a **pull request**.<p>They'll likely be *merged* and you'll definitely get some *feedback*.</p>
-
-### Other ways to help
-
-You can also [contact Finn][contact] or [sponsor this project :heart:][sponsor]!
-
-<a id="license"></a>
-## 5 - License
-
-[MIT License. Copyright 2020 Finn M Glas.][MIT]
+LedgerMan is a project by [Finn M Glas][website], you can [sponsor] it or [contact Finn][contact] about major issues or cooperations.
 
 <!-- Finns owned media -->
   [contact]: https://contact.finnmglas.com
   [sponsor]: https://sponsor.finnmglas.com
+  [website]: https://www.finnmglas.com
 
 <!-- Community -->
   [discord]: https://discord.com/invite/BsZXaur
