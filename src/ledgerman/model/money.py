@@ -31,7 +31,7 @@ class Money:
         money.amount = decimal.Decimal(moneyStringSplit[0])
         money.currency = moneyStringSplit[1]
 
-    def __repr__(money):
+    def __repr__(self):
 
         """
         Represent a Money object: '[amount] [currency]'.
@@ -39,28 +39,28 @@ class Money:
 
         return (
             str(
-                money.amount.quantize(
-                    decimal.Decimal(money.roundTo), rounding=decimal.ROUND_HALF_EVEN
+                self.amount.quantize(
+                    decimal.Decimal(self.roundTo), rounding=decimal.ROUND_HALF_EVEN
                 )
             )
             + " "
-            + money.currency
+            + self.currency
         )
 
-    def to(money, currency):
+    def to(self, currency):
 
         """
         Convert Money to a currency.
         """
 
-        if money.currency == currency:
-            return money
+        if self.currency == currency:
+            return self
         else:
-            raise ValueError("can't convert '" + str(money) + "' to '" + currency + "'")
+            raise ValueError("can't convert '" + str(self) + "' to '" + currency + "'")
 
     # operations
 
-    def __eq__(money, other):
+    def __eq__(self, other):
 
         """
         Check equality of Money objects.
@@ -73,9 +73,9 @@ class Money:
                 + "'"
             )
 
-        return other.to(money.currency).amount == money.amount
+        return other.to(self.currency).amount == self.amount
 
-    def __add__(money, other):
+    def __add__(self, other):
 
         """
         Add Money objects.
@@ -89,16 +89,16 @@ class Money:
             )
 
         return Money(
-            str(money.amount + other.to(money.currency).amount) + " " + money.currency
+            str(self.amount + other.to(self.currency).amount) + " " + self.currency
         )
 
-    def __sub__(money, other):
+    def __sub__(self, other):
 
         """
         Subtract Money objects.
         """
 
-        if not isinstance(other, Money):
+        if not isinstance(self, Money):
             raise TypeError(
                 "unsupported operand type(s) for -: 'Money' and '"
                 + type(other).__name__
@@ -106,18 +106,18 @@ class Money:
             )
 
         return Money(
-            str(money.amount - other.to(money.currency).amount) + " " + money.currency
+            str(self.amount - other.to(self.currency).amount) + " " + self.currency
         )
 
-    def __neg__(money):
+    def __neg__(self):
 
         """
         Negate Money objects.
         """
 
-        return Money() - money
+        return Money() - self
 
-    def __mul__(money, other):
+    def __mul__(self, other):
 
         """
         Multiply Money objects by numbers.
@@ -136,12 +136,12 @@ class Money:
 
         if isinstance(other, float):  # make sure it is rounded properly
             other = decimal.Decimal(other).quantize(
-                decimal.Decimal(money.roundTo), rounding=decimal.ROUND_HALF_EVEN
+                decimal.Decimal(self.roundTo), rounding=decimal.ROUND_HALF_EVEN
             )
 
-        return Money(str(money.amount * other) + " " + money.currency)
+        return Money(str(self.amount * other) + " " + self.currency)
 
-    def __truediv__(money, other):
+    def __truediv__(self, other):
 
         """
         Divide Money objects by numbers or others.
@@ -162,9 +162,9 @@ class Money:
         if isinstance(other, float):
             other = decimal.Decimal(other)
         if isinstance(other, Money):
-            return money.amount / other.to(money.currency).amount
+            return self.amount / other.to(self.currency).amount
 
-        return Money(str(money.amount / other) + " " + money.currency)
+        return Money(str(self.amount / other) + " " + self.currency)
 
 
 decimal.getcontext().prec = 128  # general max precision
