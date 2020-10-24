@@ -46,7 +46,7 @@ class TestMoney(TestCase):
         Money("1.8 BTC").to("BTC")
 
         try:
-            Money("1.8 BTC").to("EUR")
+            Money("1.8 XXXXXXX").to("TTTT")
             raise Exception("Conversion should have failed.")
         except ValueError:
             pass

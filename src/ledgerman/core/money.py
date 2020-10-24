@@ -1,11 +1,66 @@
 import decimal
 
+from .exchange_rate_fetcher import ExchangeRateFetcher
+
 
 class Money:
 
     """
     Money.
     """
+
+    exchange = None
+
+    @staticmethod
+    def ensureExchangeExists():
+
+        """
+        The Money class has an associated Exchange. Ensure it exists.
+        """
+
+        if Money.exchange == None:
+            from .exchange import Exchange
+
+            Money.exchange = Exchange()
+
+    @staticmethod
+    def addExchangeRate(*exchangeRate):
+
+        """
+        Add an ExchangeRate to the global money Exchange.
+        """
+
+        Money.ensureExchangeExists()
+        Money.exchange.insertExchangeRate(*exchangeRate)
+
+    @staticmethod
+    def canConvert(base, other):
+
+        """
+        Check if the money Exchange can convert from a base currency to another.
+        """
+
+        Money.ensureExchangeExists()
+        return Money.exchange.canConvert(base, other)
+
+    @staticmethod
+    def fetchRates(source="ecb", verbose=False):
+
+        """
+        Fetch ExchangeRates from a source api.
+        """
+
+        for e in ExchangeRateFetcher.fetch(source, verbose):
+            Money.addExchangeRate(*e)
+
+    def to(self, currency):
+
+        """
+        Convert the Money object using the global money Exchange to another currency.
+        """
+
+        Money.ensureExchangeExists()
+        return Money.exchange.convert(self, currency)
 
     def __init__(money, initArgument="0 EUR", roundTo="0.0001"):
 
@@ -46,17 +101,6 @@ class Money:
             + " "
             + self.currency
         )
-
-    def to(self, currency):
-
-        """
-        Convert Money to a currency.
-        """
-
-        if self.currency == currency:
-            return self
-        else:
-            raise ValueError("can't convert '" + str(self) + "' to '" + currency + "'")
 
     # operations
 

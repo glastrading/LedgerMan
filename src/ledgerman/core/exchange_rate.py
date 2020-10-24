@@ -48,7 +48,7 @@ class ExchangeRate:
         Get the supported currency set.
         """
 
-        return {self.base, self.other}
+        return {self.baseCurrency, self.destCurrency}
 
     def getDest(self, baseCurrency=None):
 

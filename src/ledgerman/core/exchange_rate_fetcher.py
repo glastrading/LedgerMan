@@ -3,6 +3,7 @@ from xml.etree import ElementTree as XMLElementTree
 
 
 class ExchangeRateFetcher:
+
     """
     An API connector for ledgerman that fetches ExchangeRates.
     """
@@ -13,9 +14,11 @@ class ExchangeRateFetcher:
 
     @staticmethod
     def fetch(source="ecb", verbose=False):
+
         """
         Fetch ExchangeRates from a source.
         """
+
         source = source.lower()
         exchangeRates = []
         # fetch, convert and return
@@ -32,9 +35,11 @@ class ExchangeRateFetcher:
     # APIs to fetch from
     @staticmethod
     def fetch_ecb(verbose=False):  # REAL: official, XML, Free
+
         """
         Fetch ExchangeRates from the european central bank (updated daily).
         """
+
         exchangeRates = []
         # fetch
         r = requests.get(
@@ -58,9 +63,11 @@ class ExchangeRateFetcher:
 
     @staticmethod
     def fetch_exchangeratesapi_io(verbose=False):  # REAL: inofficial, JSON, Free
+
         """
         Fetch ExchangeRates from api.exchangeratesapi.io (which takes input from ecb).
         """
+
         exchangeRates = []
         # fetch
         r = requests.get("https://api.exchangeratesapi.io/latest")
@@ -83,10 +90,12 @@ class ExchangeRateFetcher:
 
     @staticmethod
     def fetch_coingecko(verbose=False):  # CRYPTO: inofficial, JSON, Free
+
         """
         Fetch ExchangeRates from api.coingecko.com.
         Docs: https://www.coingecko.com/api/documentations/v3
         """
+
         exchangeRates = []
 
         coingecko_sym2id = {  # see https://api.coingecko.com/api/v3/coins/list
