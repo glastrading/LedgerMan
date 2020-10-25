@@ -30,7 +30,7 @@ Example - convert EUR to USD:
 ```python
 Money.fetchRates() # from the European Central Bank
 
-m = Money(10, "EUR")
+m = Money("10 EUR")
 print(m.to("USD")) # convert currencies
 ```
 
