@@ -7,8 +7,6 @@
 
 LedgerMan is a feature-packed, **comprehensive** Python library for accounting and financial calculations, implementing **useful models** and **powerful tools**.
 
-It is still an alpha-version though.
-
 ## Installation
 
 To install LedgerMan, run `pip install ledgerman`.

@@ -59,7 +59,7 @@ You can also join our [discord]!
 You can also [contact Finn][contact] or [sponsor this project :heart:][sponsor]!
 
 <a id="license"></a>
-## 5 - License
+## License
 
 [MIT License. Copyright 2020 Finn M Glas.][MIT]
 

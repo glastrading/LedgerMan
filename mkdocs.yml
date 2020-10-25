@@ -9,7 +9,7 @@ nav:
     - 'LedgerMan Finances': 'core.md'
     - 'LedgerMan Accounting': 'accounting.md'
     - 'LedgerMan CLI tools': 'tools.md'
-    - 'Our Issue Tracker': 'https://github.com/finnmglas/LedgerMan'
+    - 'Contributing': 'contributing.md'
 
 theme:
     name: readthedocs
