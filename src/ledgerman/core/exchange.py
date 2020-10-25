@@ -166,7 +166,7 @@ class Exchange:
         if conversions == []:
             raise ValueError(
                 "Can't convert the currencies "
-                + baseCurrency
+                + money.currency
                 + " and "
                 + destCurrency
                 + " using this exchange."
