@@ -24,7 +24,7 @@ class Money:
             Money.exchange = Exchange()
 
     @staticmethod
-    def addExchangeRate(*exchangeRate):
+    def insertExchangeRate(*exchangeRate):
 
         """
         Add an ExchangeRate to the global money Exchange.
@@ -51,7 +51,7 @@ class Money:
         """
 
         for e in ExchangeRateFetcher.fetch(source, verbose):
-            Money.addExchangeRate(*e)
+            Money.insertExchangeRate(*e)
 
     def to(self, currency):
 

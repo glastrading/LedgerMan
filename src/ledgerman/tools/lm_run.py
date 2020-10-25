@@ -124,7 +124,7 @@ class PyMoney:
             + "=>"
             + PyMoney.regex.white
             + PyMoney.regex.money,
-            r'Money.addExchangeRate("\1", "\3", \2)',
+            r'Money.insertExchangeRate("\1", "\3", \2)',
             code,
         )
         # implement Money syntax `X.X EUR`

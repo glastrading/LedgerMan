@@ -47,9 +47,7 @@ class Exchange:
         elif len(args) == 3:  # baseCurrency, destCurrency, rate
             newExchangeRate = ExchangeRate(args[0], args[1], args[2])
         else:
-            raise ValueError(
-                "Invalid exchange rate selfect for Exchange.insertExchangeRate()."
-            )
+            raise ValueError("Invalid exchange rate for Exchange.insertExchangeRate().")
 
         existingRates = [
             exchangeRate
@@ -65,6 +63,23 @@ class Exchange:
                 oldExchangeRate.rate = newExchangeRate.rate
             else:
                 oldExchangeRate.rate = 1 / newExchangeRate.rate
+
+    def getCurrencies(self):
+
+        """
+        Get a list of all supported currencies.
+        Having two currencies included here does not mean they can be converted.
+        """
+
+        return {e.baseCurrency for e in self.exchangeRates} + {
+            e.destCurrency for e in self.exchangeRates
+        }
+
+    def canConvert(self, baseCurrency, destCurrency=None):
+        if destCurrency == None:
+            return baseCurrency in self.getCurrencies()
+        else:
+            return len(self.exchangeRatePath(baseCurrency, destCurrency)) > 0
 
     # transform Money - unlimited steps of conversion possible :) - @finnmglas
     def exchangeRatePath(
@@ -96,13 +111,7 @@ class Exchange:
         ]
 
         if not len(forwardOptions) or not len(backwardOptions):
-            raise ValueError(
-                "Can't convert the currencies "
-                + baseCurrency
-                + " and "
-                + destCurrency
-                + " using this exchange."
-            )
+            return []
 
         if verbose:
             print(baseCurrency, "can be converted using", forwardOptions)
@@ -153,6 +162,15 @@ class Exchange:
         conversions = self.exchangeRatePath(
             money.currency, destCurrency, verbose=verbose
         )
+
+        if conversions == []:
+            raise ValueError(
+                "Can't convert the currencies "
+                + baseCurrency
+                + " and "
+                + destCurrency
+                + " using this exchange."
+            )
 
         if verbose:
             print("ExchangePath:", conversions)
