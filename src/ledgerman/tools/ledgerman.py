@@ -3,7 +3,6 @@
 import argparse, sys
 
 from .lm_convert import LedgerManConvert
-from .lm_run import PyMoney
 
 
 class LedgerMan:
@@ -12,7 +11,7 @@ class LedgerMan:
     It parses input and chooses which LedgerMan tool to execute.
     """
 
-    tools = {"convert": LedgerManConvert, "run": PyMoney}
+    tools = {"convert": LedgerManConvert}
 
     @staticmethod
     def error(e):

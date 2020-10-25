@@ -3,10 +3,10 @@
 import argparse, sys
 
 from ledgerman import *
-from .lm_run import PyMoney
 
 
 class LedgerManConvert:
+
     """
     'ledgerman convert' is a commandline tool, that converts currencies.
     """
@@ -17,9 +17,11 @@ class LedgerManConvert:
 
     @staticmethod
     def generateParser():
+
         """
         Generate the ArgumentParser for 'ledgerman convert'.
         """
+
         LedgerManConvert.parser = argparse.ArgumentParser(
             prog="ledgerman convert",
             description="The 'ledgerman-convert' tool coverts and adds currencies.",
@@ -32,19 +34,21 @@ class LedgerManConvert:
             default=False,
         )
         LedgerManConvert.parser.add_argument(
-            "expression", nargs="?", help="An expression to be converted."
+            "source", nargs="?", help="The currency to convert from."
         )
         LedgerManConvert.parser.add_argument(
-            "currency", nargs="?", help="The currency to convert to."
+            "dest", nargs="?", help="The currency to convert to."
         )
 
         return LedgerManConvert.parser
 
     @staticmethod
     def main(args=None):
+
         """
         The main program of 'ledgerman convert'.
         """
+
         if args == None:  # parse args using own parser
             LedgerManConvert.generateParser()
             args = LedgerManConvert.parser.parse_args(sys.argv[1:])
@@ -59,46 +63,8 @@ class LedgerManConvert:
                 print(rate)
             exit()
 
-        if args.expression:
-            if (
-                len(args.expression.split(" ")) == 1
-                and args.expression.upper() == args.expression
-            ):
-                args.expression = "1 " + args.expression
-
-            try:
-                expression = PyMoney.evaluate(args.expression, globals())
-            except SyntaxError:
-                LedgerManConvert.error(
-                    "SyntaxError in expression '" + args.expression + "'."
-                )
-            except:
-                LedgerManConvert.error(
-                    "Unexpected expression '" + args.expression + "'."
-                )
-
-        if args.currency:
-            if len(args.currency.split(" ")) == 1:
-                currency = args.currency
-            else:
-                LedgerManConvert.error(
-                    "Unrecognized destination currency: '" + args.currency + "'."
-                )
-
-            try:
-                print(
-                    args.expression, "=", Money.exchange.convert(expression, currency)
-                )
-            except ValueError:
-                LedgerManConvert.error(
-                    "Can't convert '"
-                    + args.expression
-                    + "' to '"
-                    + args.currency
-                    + "'."
-                )
-        else:
-            print(expression)
+        if args.source and args.dest:
+            print(Money("1 " + args.source, roundTo="0.000001").to(args.dest))
 
 
 if __name__ == "__main__":

@@ -93,7 +93,8 @@ class ExchangeRate:
                     )
                 )
                 + " "
-                + self.destCurrency
+                + self.destCurrency,
+                roundTo=money.roundTo,
             )
         elif self.destCurrency == money.currency:  # base <- dest
             return Money(
@@ -104,7 +105,8 @@ class ExchangeRate:
                     )
                 )
                 + " "
-                + self.baseCurrency
+                + self.baseCurrency,
+                roundTo=money.roundTo,
             )
         else:  # unknown currency
             raise TypeError(

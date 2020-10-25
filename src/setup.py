@@ -53,7 +53,6 @@ setup(
     packages=["ledgerman"],
     entry_points={
         "console_scripts": [
-            "pymoney=ledgerman.tools:PyMoney.main",
             "ledgerman=ledgerman.tools:LedgerMan.main",
         ],
     },
