@@ -1,4 +1,4 @@
-from setuptools import setup
+import setuptools
 
 long_description = """
 |PyPI - Version| |Downloads| |Discord| |Code style: black|
@@ -33,9 +33,9 @@ LedgerMan
    :target: https://github.com/psf/black
 """
 
-setup(
+setuptools.setup(
     name="ledgerman",
-    version="0.6.0",
+    version="0.6.1",
     description="The python library for accounting and finance.",
     long_description=long_description,
     classifiers=[
@@ -50,7 +50,7 @@ setup(
     author="Finn M Glas",
     author_email="finn@finnmglas.com",
     license="MIT",
-    packages=["ledgerman"],
+    packages=setuptools.find_packages(),
     entry_points={
         "console_scripts": [
             "ledgerman=ledgerman.tools:LedgerMan.main",
