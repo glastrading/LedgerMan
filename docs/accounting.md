@@ -24,7 +24,7 @@ cash.balance == Money("10000 EUR") # true
 loan.balance == Money("10000 EUR") # true
 
 # pay the loan off again
-loan.debit("10000 EUR")
+loan.debit("10000 EUR", cash)
 ```
 
 Debit accounts and credit accounts should always equal to 0.
@@ -39,4 +39,39 @@ loan = Account(Account.Type.CREDIT, name="My Loan")
 amount = Money("10000 EUR")
 cash.debit(amount, loan, note="Take the loan from my bank.")
 loan.debit(amount, cash, note="Pay back what I owe the bank.")
+```
+
+To model an action that happened in the past or may happen in the future, you can add a date parameter to transactions on your accounts:
+
+```python
+cash.debit(amount, loan, date="2020-01-05 10:00:00")
+```
+
+## Journals
+
+Accounts have associated journals that keep track of the accounts balance over time, transactions and notes.
+
+You can print journals to see their entries. This is the journal for our example above where we took a 10k loan and payed it back. As we didn't specify any dates, it looks like we look the loan and payed it back in the same second:
+
+```
+[
+    {
+        "amount": "10000.0000 EUR",
+        "credit": "My Loan (credit)",
+        "date": "2020-10-25 08:31:20",
+        "debit": "My Wallet (debit)",
+        "note": "Take the loan from my bank.",
+        "result": "10000.0000 EUR",
+        "type": "debit"
+    },
+    {
+        "amount": "10000.0000 EUR",
+        "credit": "My Wallet (debit)",
+        "date": "2020-10-25 08:31:20",
+        "debit": "My Loan (credit)",
+        "note": "Pay back what I owe the bank.",
+        "result": "0.0000 EUR",
+        "type": "credit"
+    }
+]
 ```
