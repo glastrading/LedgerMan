@@ -37,10 +37,22 @@ class Account:
             raise ValueError("Accounts can only be Debit (1) or Credit (-1).")
 
         if isinstance(startBalance, str):
-            startBalance = Money(startBalance)
+            if len(startBalance.split(" ")) == 2:
+                startBalance = Money(startBalance)
+            elif len(startBalance.split(" ")) == 1:
+                startBalance = Money("0 " + startBalance)
+            else:
+                raise ValueError(
+                    "Unexpected long string input for an account: '"
+                    + startBalance
+                    + "'"
+                )
 
         self.journal = Journal()
+
         self.balance = startBalance
+        self.currency = self.balance.currency
+
         self.type = type
         self.name = name
 
@@ -54,7 +66,7 @@ class Account:
     def __repr__(self):
         return self.name + " (" + {1: "debit", -1: "credit"}[self.type] + ")"
 
-    def transaction(self, type, amount, other, date=None, note="", done=False):
+    def transaction(self, type, amount, other, date=None, note="", mirror=False):
 
         """
         Move money beween Accounts.
@@ -78,39 +90,57 @@ class Account:
         else:
             raise ValueError("Transactions need to be DEBIT or CREDIT.")
 
-        if not done:
-            other.transaction(type * -1, amount, self, date=date, note=note, done=True)
+        if mirror:
+            other.transaction(
+                type * -1, amount, self, date=date, note=note, mirror=False
+            )
 
-    def credit(self, amount, debitFrom, date=None, note=""):
+    def credit(self, amount, debitFrom, date=None, note="", mirror=True):
 
         """
         Increase the Account if it is a credit-type account.
         """
 
-        self.transaction(Account.Type.CREDIT, amount, debitFrom, date=date, note=note)
+        self.transaction(
+            Account.Type.CREDIT,
+            amount,
+            debitFrom,
+            date=date,
+            note=note,
+            mirror=mirror,
+        )
 
-    def debit(self, amount, creditFrom, date=None, note=""):
+    def debit(self, amount, creditFrom, date=None, note="", mirror=True):
 
         """
         Increase the Account if it is a debit-type account.
         """
 
-        self.transaction(Account.Type.DEBIT, amount, creditFrom, date=date, note=note)
+        self.transaction(
+            Account.Type.DEBIT,
+            amount,
+            creditFrom,
+            date=date,
+            note=note,
+            mirror=mirror,
+        )
 
-    def increase(self, amount, other, date=None, note=""):
+    def increase(self, amount, other, date=None, note="", mirror=True):
 
         """
         Increasing means that if the account is debit, it will be debited,
         if it is credit, credited.
         """
 
-        self.transaction(self.type, amount, other, date=None, note=note)
+        self.transaction(self.type, amount, other, date=None, note=note, mirror=mirror)
 
-    def decrease(self, amount, other, date=None, note=""):
+    def decrease(self, amount, other, date=None, note="", mirror=True):
 
         """
         Decreasing means that if the account is debit, it will be credited,
         if it is credit, debited.
         """
 
-        self.transaction(self.type * -1, amount, other, date=None, note=note)
+        self.transaction(
+            self.type * -1, amount, other, date=None, note=note, mirror=mirror
+        )

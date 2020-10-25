@@ -75,3 +75,24 @@ You can print journals to see their entries. This is the journal for our example
     }
 ]
 ```
+
+## Trade Accounts
+
+Trade accounts can be used to model currency-pair-trades:
+
+```python
+# Get Exchange Rates
+Money.fetchRates("coingecko")
+
+# Create a Trade account
+myEthereum = TradeAccount("EUR", "ETH")
+
+# Trade some
+myEthereum.trade("100 EUR", "0.4514155 ETH", "2020-06-08 20:02:00")
+
+# Check Profits
+myEthereum.getProfits()
+
+# Display details
+print(myEthereum)
+```
