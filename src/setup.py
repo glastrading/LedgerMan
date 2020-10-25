@@ -36,7 +36,7 @@ LedgerMan
 setup(
     name="ledgerman",
     version="0.5.1",
-    description="The python library for finance.",
+    description="The python library for accounting and finance.",
     long_description=long_description,
     classifiers=[
         "Development Status :: 3 - Alpha",

@@ -1,4 +1,16 @@
 site_name: LedgerMan
+repo_url: https://github.com/finnmglas/LedgerMan/
+
+site_description: The python library for accounting and finance.
+site_author: Finn M Glas
+
+nav:
+    - 'Introduction': 'index.md'
+    - 'LedgerMan Finances': 'core.md'
+    - 'LedgerMan Accounting': 'accounting.md'
+    - 'LedgerMan CLI tools': 'tools.md'
+    - 'Our Issue Tracker': 'https://github.com/finnmglas/LedgerMan'
+
 theme:
     name: readthedocs
     highlightjs: true
