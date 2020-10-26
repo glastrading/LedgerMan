@@ -1,56 +1,54 @@
-from ..accounting.account import Account
+from .trade import Trade
 from ..core.money import Money
 
 
 class TradeAccount:
 
     """
-    TradeAccounts represent currency-pair trades (with a broker).
+    TradeAccounts can record many trades of different currencies.
     """
 
-    def __init__(self, baseCurrency, assetCurrency):
+    def __init__(self, baseCurrency="EUR"):
 
         """
         Create a TradeAccount.
         """
 
-        self.expense = Account(
-            Account.Type.EXPENSE, baseCurrency, name="Expense in " + baseCurrency
-        )
-        self.asset = Account(
-            Account.Type.ASSET, assetCurrency, name="Traded Asset in " + assetCurrency
-        )
+        self.trades = []
 
-        self.baseCurrency = baseCurrency
-        self.assetCurrency = assetCurrency
-
-    def __repr__(self):
+    def findTrade(self, baseCurrency, assetCurrency):
 
         """
-        Represent a TradeAccount.
+        Find a trade corresponding to a currency-pair.
         """
 
-        repr = "TradeAccount {\n"
-        repr += "\t" + self.baseCurrency + " -> " + self.assetCurrency + "\n"
-        repr += "\tbalance = " + str(self.asset.balance) + "\n"
-        repr += "\t\t= " + str(self.asset.balance.to(self.baseCurrency)) + "\n"
-        repr += "\texpense = " + str(self.expense.balance) + "\n"
-        repr += "\tprofits = " + str(self.getProfits()) + "\n"
-        repr += "}"
+        for t in self.trades:
+            if t.baseCurrency == baseCurrency and t.assetCurrency == assetCurrency:
+                return t
+        return None
 
-        return repr
-
-    def trade(self, expense, received=None, date=None):
+    def trade(self, expense, received, date=None):
 
         """
-        Trade expense (base currency) to received (asset currency).
+        Trade with existing or new trades within the TradeAccount.
         """
 
-        if type(received) == type(None):
-            received = expense.to(self.assetCurrency)
+        if isinstance(expense, str):
+            expense = Money(expense)
+        if isinstance(received, str):
+            received = Money(received)
 
-        self.expense.increase(expense, self.asset, date=date, mirror=False)
-        self.asset.increase(received, self.expense, date=date, mirror=False)
+        tradeExists = True
+        trade = self.findTrade(expense.currency, received.currency)
+
+        if type(trade) == type(None):
+            trade = Trade(expense.currency, received.currency)
+            tradeExists = False
+
+        trade.trade(expense, received, date=date)
+
+        if not tradeExists:
+            self.trades += [trade]
 
     def take(self, amount, date=None):
 
@@ -58,7 +56,11 @@ class TradeAccount:
         Take some of the asset away.
         """
 
-        self.asset.decrease(amount, self.expense, date=date, mirror=False)
+        if isinstance(amount, str):
+            amount = Money(amount)
+
+        trade = self.findTrade("EUR", amount.currency)
+        trade.asset.decrease(amount, trade.expense, date=date, mirror=False)
 
     def put(self, amount, date=None):
 
@@ -66,12 +68,42 @@ class TradeAccount:
         Add some to the asset.
         """
 
-        self.asset.increase(amount, self.expense, date=date, mirror=False)
+        if isinstance(amount, str):
+            amount = Money(amount)
+
+        trade = self.findTrade("EUR", amount.currency)
+        trade.asset.increase(amount, trade.expense, date=date, mirror=False)
+
+    def getBalance(self):
+
+        """
+        Calculate the assets balance over all trades.
+        """
+
+        balance = Money("0 EUR")
+
+        for trade in self.trades:
+            balance += trade.asset.balance
+
+        return balance
+
+    def getExpense(self):
+
+        """
+        Calculate the expense over all trades.
+        """
+
+        expense = Money("0 EUR")
+
+        for trade in self.trades:
+            expense += trade.expense.balance
+
+        return expense
 
     def getProfits(self):
 
         """
-        Calculate the current profits.
+        Calculate the current profits of all trades.
         """
 
-        return self.asset.balance - self.expense.balance
+        return self.getBalance() - self.getExpense()
