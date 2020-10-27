@@ -1,4 +1,4 @@
-from ..accounting.account import Account
+from ..core.account import Account
 from ..core.money import Money
 
 

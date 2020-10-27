@@ -1,4 +1,4 @@
-from ..core.money import Money
+from .money import Money
 from .journal import Journal
 
 

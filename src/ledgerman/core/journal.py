@@ -1,5 +1,7 @@
 import datetime, json
 
+from ..view import CLI
+
 
 class Journal:
 
@@ -16,9 +18,7 @@ class Journal:
         self.entries = []
 
     def __repr__(self):
-        return json.dumps(
-            json.loads(str(self.entries).replace("'", '"')), indent=4, sort_keys=True
-        )
+        return CLI.json(self.entries)
 
     def log(
         self,
