@@ -56,7 +56,11 @@ setuptools.setup(
             "ledgerman=ledgerman.tools:LedgerMan.main",
         ],
     },
-    install_requires=["requests", "argparse"],
+    install_requires=[
+        "cliprint",  # Managed by Finn - https://github.com/finnmglas/cliprint
+        "requests",
+        "argparse",
+    ],
     test_suite="nose.collector",
     tests_require=["nose"],
     include_package_data=True,
