@@ -1,9 +1,28 @@
+###
+#
+#   LedgerMan's .gitignore
+#
+###
 
-# Compiled python modules.
+# --- LANGUAGE - compiled python modules
+
 *.pyc
 
-# Setuptools distribution folder.
-dist/
+# --- DISTRIBUTION - setup-tools
 
-# Python egg metadata, regenerated from source files by setuptools.
+dist/
 *.egg-info
+
+# --- KEYWORDS - data you don't want to commit
+
+*private*
+priv_*
+
+*temporary*
+temp_*
+
+*secret*
+*.key
+
+*proprietary*
+prop_*
