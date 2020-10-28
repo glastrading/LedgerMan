@@ -26,6 +26,8 @@ class ExchangeRateFetcher:
             exchangeRates = ExchangeRateFetcher.fetch_ecb(verbose)
         elif source == "exchangeratesapi_io":
             exchangeRates = ExchangeRateFetcher.fetch_exchangeratesapi_io(verbose)
+        elif source == "bitpanda":
+            exchangeRates = ExchangeRateFetcher.fetch_bitpanda(verbose)
         elif source == "coingecko":
             exchangeRates = ExchangeRateFetcher.fetch_coingecko(verbose)
         else:
@@ -86,6 +88,34 @@ class ExchangeRateFetcher:
             if verbose:
                 ExchangeRateFetcher.printExchangeRate(e)
             exchangeRates += [e]
+        return exchangeRates
+
+    @staticmethod
+    def fetch_bitpanda(verbose=False):
+
+        """
+        Fetch ExchangeRates from Bitpanda.
+        Docs: https://developers.bitpanda.com/platform/
+        """
+
+        exchangeRates = []
+
+        if verbose:
+            ExchangeRateFetcher.printExchangeRate(e)
+
+        r = requests.get("https://api.bitpanda.com/v1/ticker")
+
+        if r.status_code != 200:
+            raise IOError("Connecting to the bitpanda.com JSON API failed.")
+
+        jsonResult = r.json()
+
+        for key in jsonResult:
+            e = key, "EUR", float(jsonResult[key]["EUR"])
+            if verbose:
+                ExchangeRateFetcher.printExchangeRate(e)
+            exchangeRates += [e]
+
         return exchangeRates
 
     @staticmethod
