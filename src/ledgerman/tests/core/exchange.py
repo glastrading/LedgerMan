@@ -38,15 +38,13 @@ class TestExchange(TestCase):
             ("E", "F", 5),
         )
 
-        self.assertEquals(
-            e.convert(Money("1 A"), "B"),
-            Money("1.4 B"),
+        self.assertTrue(
+            abs((e.convert(Money("1 A"), "B") - Money("1.4 B")).amount) < 0.01,
             "First-level Money conversions should work properly.",
         )
 
-        self.assertEquals(
-            e.convert(Money("1 A"), "C"),
-            Money("4.2 C"),
+        self.assertTrue(
+            abs((e.convert(Money("1 A"), "C") - Money("4.2 C")).amount) < 0.01,
             "Second-level Money conversions should work properly.",
         )
 

@@ -81,32 +81,24 @@ class ExchangeRate:
         Convert money from one currency to another.
         """
 
+        decimal.getcontext().prec = money.precision
+
         if not isinstance(money, Money):  # only money can be converted
             raise TypeError("Can't convert " + str(type(money)) + " to money.")
 
         if self.baseCurrency == money.currency:  # base -> dest
             return Money(
-                str(
-                    money.amount
-                    * decimal.Decimal(self.rate).quantize(
-                        decimal.Decimal(money.roundTo), rounding=decimal.ROUND_HALF_EVEN
-                    )
-                )
+                str(money.amount * decimal.Decimal(self.rate))
                 + " "
                 + self.destCurrency,
-                roundTo=money.roundTo,
+                precision=money.precision,
             )
         elif self.destCurrency == money.currency:  # base <- dest
             return Money(
-                str(
-                    money.amount
-                    / decimal.Decimal(self.rate).quantize(
-                        decimal.Decimal(money.roundTo), rounding=decimal.ROUND_HALF_EVEN
-                    )
-                )
+                str(money.amount / decimal.Decimal(self.rate))
                 + " "
                 + self.baseCurrency,
-                roundTo=money.roundTo,
+                precision=money.precision,
             )
         else:  # unknown currency
             raise TypeError(

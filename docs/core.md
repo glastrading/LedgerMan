@@ -11,10 +11,10 @@ m1 = Money() # default: 0 EUR
 m2 = Money("10 USD")
 ```
 
-You can set a precision (how many digits are stored) for money objects:
+You can set a precision (how many digits behind the separator are stored) for money objects:
 
 ```python
-m3 = Money("10 BTC", roundTo="0.00000001")
+m3 = Money("10 BTC", precision=8)
 ```
 
 Do basic calculations with `Money`:

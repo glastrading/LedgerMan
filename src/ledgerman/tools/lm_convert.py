@@ -64,7 +64,7 @@ class LedgerManConvert:
             exit()
 
         if args.source and args.dest:
-            print(Money("1 " + args.source, roundTo="0.000001").to(args.dest))
+            print(Money("1 " + args.source, precision=8).to(args.dest))
 
 
 if __name__ == "__main__":

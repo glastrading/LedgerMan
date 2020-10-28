@@ -62,7 +62,7 @@ class Money:
         Money.ensureExchangeExists()
         return Money.exchange.convert(self, currency)
 
-    def __init__(money, initArgument="0 EUR", roundTo="0.0001"):
+    def __init__(self, initArgument="0 EUR", precision=8):
 
         """
         Create a Money object.
@@ -82,9 +82,14 @@ class Money:
                 "Expected a money string of the format '[amount] [currency]'."
             )
 
-        money.roundTo = roundTo
-        money.amount = decimal.Decimal(moneyStringSplit[0])
-        money.currency = moneyStringSplit[1]
+        self.precision = precision
+        decimal.getcontext().prec = self.precision
+        self.amount = decimal.Decimal(moneyStringSplit[0]) * 1
+        self.currency = moneyStringSplit[1]
+
+    def smallest(self):
+        decimal.getcontext().prec = self.precision
+        return decimal.Decimal("0." + self.precision * "0" + "1")
 
     def __repr__(self):
 
@@ -92,15 +97,8 @@ class Money:
         Represent a Money object: '[amount] [currency]'.
         """
 
-        return (
-            str(
-                self.amount.quantize(
-                    decimal.Decimal(self.roundTo), rounding=decimal.ROUND_HALF_EVEN
-                )
-            )
-            + " "
-            + self.currency
-        )
+        decimal.getcontext().prec = self.precision
+        return "{:f}".format(self.amount.normalize()) + " " + self.currency
 
     # operations
 
@@ -109,6 +107,8 @@ class Money:
         """
         Check equality of Money objects.
         """
+
+        decimal.getcontext().prec = self.precision
 
         if not isinstance(other, Money):
             raise TypeError(
@@ -124,6 +124,8 @@ class Money:
         """
         Add Money objects.
         """
+
+        decimal.getcontext().prec = self.precision
 
         if not isinstance(other, Money):
             raise TypeError(
@@ -142,6 +144,8 @@ class Money:
         Subtract Money objects.
         """
 
+        decimal.getcontext().prec = self.precision
+
         if not isinstance(self, Money):
             raise TypeError(
                 "unsupported operand type(s) for -: 'Money' and '"
@@ -159,6 +163,8 @@ class Money:
         Negate Money objects.
         """
 
+        decimal.getcontext().prec = self.precision
+
         return Money() - self
 
     def __mul__(self, other):
@@ -166,6 +172,8 @@ class Money:
         """
         Multiply Money objects by numbers.
         """
+
+        decimal.getcontext().prec = self.precision
 
         if (
             not isinstance(other, float)
@@ -179,9 +187,7 @@ class Money:
             )
 
         if isinstance(other, float):  # make sure it is rounded properly
-            other = decimal.Decimal(other).quantize(
-                decimal.Decimal(self.roundTo), rounding=decimal.ROUND_HALF_EVEN
-            )
+            other = decimal.Decimal(other)
 
         return Money(str(self.amount * other) + " " + self.currency)
 
@@ -190,6 +196,8 @@ class Money:
         """
         Divide Money objects by numbers or others.
         """
+
+        decimal.getcontext().prec = self.precision
 
         if (
             not isinstance(other, float)
@@ -211,4 +219,3 @@ class Money:
         return Money(str(self.amount / other) + " " + self.currency)
 
 
-decimal.getcontext().prec = 128  # general max precision
