@@ -11,8 +11,8 @@ Accounts types can be `DEBIT` or `CREDIT`, that simply means a `DEBIT` account i
 
 ```python
 # create accounts
-cash = Account(Account.Type.DEBIT)
-loan = Account(Account.Type.CREDIT)
+cash = Account("debit")
+loan = Account("credit")
 
 # we need 10K EUR from the bank
 amount = Money("10000 EUR")
@@ -33,8 +33,8 @@ By default, they will, unless someone does an error.
 You can also name Accounts and annotate transactions:
 
 ```python
-cash = Account(Account.Type.DEBIT, name="My Wallet")
-loan = Account(Account.Type.CREDIT, name="My Loan")
+cash = Account("debit", name="My Wallet")
+loan = Account("credit", name="My Loan")
 
 amount = Money("10000 EUR")
 cash.debit(amount, loan, note="Take the loan from my bank.")

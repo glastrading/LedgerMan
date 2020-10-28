@@ -1,3 +1,5 @@
+import json
+
 from .exchange_rate import ExchangeRate
 from .money import Money
 
@@ -29,6 +31,31 @@ class Exchange:
                     + type(exchangRate).__name__
                     + "'."
                 )
+
+    # --- SERIALIZATION METHODS --- #
+
+    def serialize(self, indent=4, sort_keys=True):
+        d = {
+            "_type": "Exchange",
+            "exchangeRates": [json.loads(e.serialize()) for e in self.exchangeRates],
+        }
+
+        return json.dumps(d, indent=indent, sort_keys=sort_keys)
+
+    @staticmethod
+    def deserialize(d):
+        if isinstance(d, str):
+            d = json.loads(d)
+
+        if d["_type"] != "Exchange":
+            raise ValueError("Cannot deserialize objects other than ExchangeRate.")
+
+        exchangeRates = [
+            (e["baseCurrency"], e["destCurrency"], e["rate"])
+            for e in d["exchangeRates"]
+        ]
+
+        return Exchange(*exchangeRates)
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -182,6 +209,13 @@ class Exchange:
         return convertedMoney
 
     # --- DATA MODEL OPERATIONS --- #
+
+    def __eq__(self, other):
+
+        if type(other) != Exchange:
+            return False
+
+        return self.exchangeRates == other.exchangeRates
 
     def __len__(self):
 

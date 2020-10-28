@@ -1,3 +1,5 @@
+import json
+
 from .money import Money
 from .journal import Journal
 
@@ -8,62 +10,102 @@ class Account:
     Accounts keep track of money on it.
     """
 
+    # --- STATIC VARIABLES --- #
+
+    DEBIT = 1
+    CREDIT = -1
+
     # --- STATIC METHODS --- #
 
-    class Type:
+    @staticmethod
+    def typeToInt(type):
 
         """
         The account type defines which actions increase the account.
         Debit accounts increase on debit, Credit accounts on credit.
         """
 
-        # --- STATIC VARIABLES --- #
+        if isinstance(type, str):
+            try:
+                type = {
+                    "debit": Account.DEBIT,
+                    "credit": Account.CREDIT,
+                    "asset": Account.DEBIT,
+                    "draw": Account.DEBIT,
+                    "expense": Account.DEBIT,
+                    "liability": Account.CREDIT,
+                    "equity": Account.CREDIT,
+                    "revenue": Account.CREDIT,
+                }[type.lower()]
+            except KeyError:
+                raise ValueError("Unknown account type.")
 
-        # Account(Type.DEBIT) * DEBIT == Account(Type.CREDIT) * CREDIT == 1
-        DEBIT = 1
-        CREDIT = -1
+        if type in {Account.CREDIT, Account.DEBIT}:
+            return type
+        else:
+            raise ValueError("Unrecognized integer account type: " + str(type))
 
-        ASSET = DEBIT
-        DRAW = DEBIT
-        EXPENSE = DEBIT
-
-        LIABILITY = CREDIT
-        EQUITY = CREDIT
-        REVENUE = CREDIT
+        return type
 
     # --- DATA MODEL METHODS --- #
 
-    def __init__(self, type, startBalance="0 EUR", name="Account"):
+    def __init__(self, type, balance="0 EUR", journal=None, name="Account"):
 
         """
         Create an Account.
         """
 
-        if type not in {Account.Type.DEBIT, Account.Type.CREDIT}:
-            raise ValueError("Accounts can only be Debit (1) or Credit (-1).")
+        self.typeInt = Account.typeToInt(type)  # will fail for wrong input
 
-        if isinstance(startBalance, str):
-            if len(startBalance.split(" ")) == 2:
-                startBalance = Money(startBalance)
-            elif len(startBalance.split(" ")) == 1:
-                startBalance = Money("0 " + startBalance)
+        if isinstance(balance, str):
+            if len(balance.split(" ")) == 2:
+                balance = Money(balance)
+            elif len(balance.split(" ")) == 1:
+                balance = Money("0 " + balance)
             else:
                 raise ValueError(
-                    "Unexpected long string input for an account: '"
-                    + startBalance
-                    + "'"
+                    "Unexpected long string input for an account: '" + balance + "'"
                 )
 
-        self.journal = Journal()
+        if journal != None:
+            self.journal = journal
+        else:
+            self.journal = Journal()
 
-        self.balance = startBalance
+        self.balance = balance
         self.currency = self.balance.currency
 
         self.type = type
         self.name = name
 
     def __repr__(self):
-        return self.name + " (" + {1: "debit", -1: "credit"}[self.type] + ")"
+        return self.serialize()
+
+    # --- SERIALIZATION METHODS --- #
+
+    def serialize(self, indent=4, sort_keys=True):
+        d = {
+            "_type": "Account",
+            "name": self.name,
+            "type": self.type,
+            "balance": json.loads(self.balance.serialize()),
+            "journal": json.loads(self.journal.serialize()),
+        }
+
+        return json.dumps(d, indent=indent, sort_keys=sort_keys)
+
+    @staticmethod
+    def deserialize(d):
+        if isinstance(d, str):
+            d = json.loads(d)
+
+        if d["_type"] != "Account":
+            raise ValueError("Cannot deserialize objects other than Account.")
+
+        journal = Journal.deserialize(d["journal"])
+        balance = Money.deserialize(d["balance"])
+
+        return Account(d["type"], balance=balance, journal=journal)
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -76,15 +118,15 @@ class Account:
         if isinstance(amount, str):
             amount = Money(amount)
 
-        sign = self.type * type  # if they are equal -> 1 else -1
+        sign = self.typeInt * self.typeToInt(type)  # if they are equal -> 1 else -1
 
         self.balance += amount * sign
 
-        if type == Account.Type.DEBIT:
+        if self.typeToInt(type) == Account.DEBIT:
             self.journal.log(
                 type, self.balance, amount, self, other, date=date, note=note
             )
-        elif type == Account.Type.CREDIT:
+        elif self.typeToInt(type) == Account.CREDIT:
             self.journal.log(
                 type, self.balance, amount, other, self, date=date, note=note
             )
@@ -93,7 +135,12 @@ class Account:
 
         if mirror:
             other.transaction(
-                type * -1, amount, self, date=date, note=note, mirror=False
+                self.typeToInt(type) * -1,
+                amount,
+                self,
+                date=date,
+                note=note,
+                mirror=False,
             )
 
     def credit(self, amount, debitFrom, date=None, note="", mirror=True):
@@ -103,7 +150,7 @@ class Account:
         """
 
         self.transaction(
-            Account.Type.CREDIT,
+            "credit",
             amount,
             debitFrom,
             date=date,
@@ -118,7 +165,7 @@ class Account:
         """
 
         self.transaction(
-            Account.Type.DEBIT,
+            "debit",
             amount,
             creditFrom,
             date=date,
@@ -133,7 +180,9 @@ class Account:
         if it is credit, credited.
         """
 
-        self.transaction(self.type, amount, other, date=None, note=note, mirror=mirror)
+        self.transaction(
+            self.typeInt, amount, other, date=None, note=note, mirror=mirror
+        )
 
     def decrease(self, amount, other, date=None, note="", mirror=True):
 
@@ -143,14 +192,17 @@ class Account:
         """
 
         self.transaction(
-            self.type * -1, amount, other, date=None, note=note, mirror=mirror
+            self.typeInt * -1, amount, other, date=None, note=note, mirror=mirror
         )
 
     # --- DATA MODEL OPERATIONS --- #
 
-    def __dict__(self):
-        return {
-            "name": self.name,
-            "type": {1: "debit", -1: "credit"}[self.type],
-            "balance": self.balance,
-        }
+    def __eq__(self, other):
+        if type(other) != Account:
+            return False
+        return (
+            self.name == other.name
+            and self.type == other.type
+            and self.balance == other.balance
+            and self.journal == other.journal
+        )

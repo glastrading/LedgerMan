@@ -6,13 +6,13 @@ from ledgerman import *
 class TestExchangeRate(TestCase):
 
     """
-    Test ExchangeRates
+    Test ExchangeRates.
     """
 
     def test_init(self):
 
         """
-        Test Exchange Rate creation.
+        ExchangeRate: Test initialization
         """
 
         ExchangeRate("EUR", "USD", 1.2)
@@ -20,7 +20,7 @@ class TestExchangeRate(TestCase):
     def test_inverse(self):
 
         """
-        Test inversing Exchange Rates.
+        ExchangeRate: Test inverse function
         """
 
         e = ExchangeRate("EUR", "USD", 1.2)
@@ -30,7 +30,7 @@ class TestExchangeRate(TestCase):
     def test_convert(self):
 
         """
-        Test money conversions.
+        ExchangeRate: Test money conversions
         """
 
         e = ExchangeRate("A", "XYZ", 2)
@@ -49,7 +49,7 @@ class TestExchangeRate(TestCase):
     def test_equals(self):
 
         """
-        Test the equality function of Exchange Rates.
+        ExchangeRate: Test equality function
         """
 
         self.assertEquals(ExchangeRate("A", "B", 1), ExchangeRate("A", "B", 1))
@@ -61,7 +61,7 @@ class TestExchangeRate(TestCase):
     def test_hash(self):
 
         """
-        Test the hashing function.
+        ExchangeRate: Test hashing function
         """
 
         self.assertFalse(
@@ -73,3 +73,14 @@ class TestExchangeRate(TestCase):
             hash(ExchangeRate("B", "A", 0.5)),
             "Inverse Rates should hash equally.",
         )
+
+    def test_serialization(self):
+
+        """
+        ExchangeRate: Test serialization
+        """
+
+        e1 = ExchangeRate("A", "B", 3.2)
+        e2 = ExchangeRate.deserialize(e1.serialize())
+
+        self.assertEquals(e1, e2)

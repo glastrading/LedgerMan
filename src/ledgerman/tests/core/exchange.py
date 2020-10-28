@@ -12,7 +12,7 @@ class TestExchange(TestCase):
     def test_init(self):
 
         """
-        Test Exchange creation.
+        Exchange: Test initialization
         """
 
         Exchange()
@@ -27,7 +27,7 @@ class TestExchange(TestCase):
     def test_convert(self):
 
         """
-        Test money conversions.
+        Exchange: Test money conversions
         """
 
         e = Exchange(
@@ -69,27 +69,18 @@ class TestExchange(TestCase):
     def test_equals(self):
 
         """
-        Test the equality function of Exchange Rates.
+        Exchange: Test equality function
         """
 
-        self.assertEquals(ExchangeRate("A", "B", 1), ExchangeRate("A", "B", 1))
-        self.assertEquals(ExchangeRate("A", "C", 2), ExchangeRate("C", "A", 0.5))
-        self.assertEquals(ExchangeRate("A", "C", 3), ExchangeRate("C", "A", 1 / 3))
-        self.assertEquals(ExchangeRate("A", "C", 1.2), ExchangeRate("C", "A", 1 / 1.2))
-        self.assertEquals(ExchangeRate("A", "C", 1), ExchangeRate("C", "A", 1))
+        self.assertEquals(Exchange(["A", "B", 1]), Exchange(["A", "B", 1]))
 
-    def test_hash(self):
+    def test_serialization(self):
 
         """
-        Test the hashing function.
+        Exchange: Test serialization
         """
 
-        self.assertFalse(
-            hash(ExchangeRate("A", "B", 2)) == hash(ExchangeRate("A", "B", 3)),
-            "Different Rates should hash differently.",
-        )
-        self.assertEquals(
-            hash(ExchangeRate("A", "B", 2)),
-            hash(ExchangeRate("B", "A", 0.5)),
-            "Inverse Rates should hash equally.",
-        )
+        e1 = Exchange(["A", "B", 3.2])
+        e2 = Exchange.deserialize(e1.serialize())
+
+        self.assertEquals(e1, e2)

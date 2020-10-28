@@ -6,13 +6,13 @@ from ledgerman import *
 class TestMoney(TestCase):
 
     """
-    Money Tests.
+    Test Money.
     """
 
     def test_init(self):
 
         """
-        Test Money Initialisation.
+        Money: Test initialization
         """
 
         Money()
@@ -29,7 +29,7 @@ class TestMoney(TestCase):
     def test_repr(self):
 
         """
-        Test Money Representation.
+        Money: Test representation
         """
 
         print(Money())
@@ -39,7 +39,7 @@ class TestMoney(TestCase):
     def test_to(self):
 
         """
-        Test simple Money conversions.
+        Money: Test simple conversions
         """
 
         Money().to("EUR")
@@ -51,10 +51,10 @@ class TestMoney(TestCase):
         except ValueError:
             pass
 
-    def tes_equality(self):
+    def test_equality(self):
 
         """
-        Test Money equality functions.
+        Money: Test equality functions
         """
 
         self.assertEquals(Money(), Money())
@@ -68,13 +68,13 @@ class TestMoney(TestCase):
         self.assertFalse(Money() == Money("12 EUR"))
 
         self.assertEquals(Money("1.0 EUR"), Money("1 EUR"))
-        self.assertTrue(Money("1.001 EUR", precision=2) == Money("1 EUR"))
-        self.assertFalse(Money("1.001 EUR", precision=3) == Money("1 EUR"))
+        self.assertTrue(Money("1.01 EUR", precision=1) == Money("1 EUR"))
+        self.assertFalse(Money("1.01 EUR", precision=2) == Money("1 EUR"))
 
     def test_add(self):
 
         """
-        Test Money addition.
+        Money: Test addition
         """
 
         self.assertEquals(Money("100 EUR"), Money("50 EUR") + Money("50 EUR"))
@@ -85,7 +85,7 @@ class TestMoney(TestCase):
     def test_sub(self):
 
         """
-        Test Money subtraction.
+        Money: Test subtraction
         """
 
         self.assertEquals(Money("0 EUR"), Money("50 EUR") - Money("50 EUR"))
@@ -95,7 +95,7 @@ class TestMoney(TestCase):
     def test_neg(self):
 
         """
-        Test Money negation.
+        Money: Test negation
         """
 
         self.assertEquals(Money("0 EUR") - Money("2 EUR"), -Money("2 EUR"))
@@ -104,7 +104,7 @@ class TestMoney(TestCase):
     def test_mul(self):
 
         """
-        Test Money multiplication.
+        Money: Test multiplication
         """
 
         try:
@@ -122,7 +122,7 @@ class TestMoney(TestCase):
     def test_div(self):
 
         """
-        Test Money division.
+        Money: Test division
         """
 
         self.assertEquals(Money("2 EUR") / Money("2 EUR"), 1)
@@ -131,3 +131,14 @@ class TestMoney(TestCase):
 
         self.assertEquals(Money("3 EUR") / 2, Money("1.5 EUR"))
         self.assertEquals(Money("100 EUR") / 3, Money("200 EUR") / 6)
+
+    def test_serialization(self):
+
+        """
+        Money: Test serialization
+        """
+
+        m1 = Money("9.76 EUR")
+        m2 = Money.deserialize(m1.serialize())
+
+        self.assertEquals(m1, m2)

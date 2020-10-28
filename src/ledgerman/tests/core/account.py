@@ -12,20 +12,20 @@ class TestAccount(TestCase):
     def test_init(self):
 
         """
-        Test Account creation.
+        Account: Test initialization
         """
 
-        debit = Account(Account.Type.DEBIT)
-        credit = Account(Account.Type.CREDIT)
+        debit = Account("debit")
+        credit = Account("credit")
 
     def test_credit_debit(self):
 
         """
-        Test credit() and debit() of an Account.
+        Account: Test credit() and debit()
         """
 
-        cash = Account(Account.Type.ASSET)
-        loan = Account(Account.Type.LIABILITY)
+        cash = Account("asset")
+        loan = Account("liability")
         amount = Money("10000 EUR")
 
         cash.debit(amount, loan)
@@ -51,11 +51,11 @@ class TestAccount(TestCase):
     def test_increase_decrease(self):
 
         """
-        Test increasing and decreasing of an Account.
+        Account: Test increasing and decreasing
         """
 
-        cash = Account(Account.Type.ASSET)
-        loan = Account(Account.Type.LIABILITY)
+        cash = Account("asset")
+        loan = Account("liability")
         amount = Money("10000 EUR")
 
         cash.increase(amount, loan)
@@ -81,12 +81,29 @@ class TestAccount(TestCase):
     def test_transaction_notes(self):
 
         """
-        Test naming accounts and annotating transactions.
+        Account: Test naming and annotating transactions
         """
 
-        cash = Account(Account.Type.DEBIT, name="My Wallet")
-        loan = Account(Account.Type.CREDIT, name="My Loan")
+        cash = Account("debit", name="My Wallet")
+        loan = Account("credit", name="My Loan")
 
         amount = Money("10000 EUR")
         cash.debit(amount, loan, note="Take the loan from my bank.")
         loan.debit(amount, cash, note="Pay back what I owe the bank.")
+
+    def test_serialization(self):
+
+        """
+        Account: Test serialization
+        """
+
+        a1 = Account("debit")
+        a2 = Account.deserialize(a1.serialize())
+
+        self.assertEquals(a1, a2)
+
+        a3 = Account("debit")
+        a3.debit("20 EUR", a1)
+        a4 = Account.deserialize(a3.serialize())
+
+        self.assertEquals(a3, a4)

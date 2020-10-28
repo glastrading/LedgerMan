@@ -12,7 +12,7 @@ class TestExchangeAPI(TestCase):
     def test_fetch_ecb(self):
 
         """
-        Test the European Central Banks XML API.
+        ExchangeAPI: Test European Central Bank API (XML)
         """
 
         Money.fetchRates("ecb")
@@ -21,7 +21,7 @@ class TestExchangeAPI(TestCase):
     def test_fetch_exchangeratesapi_io(self):
 
         """
-        Test the exchangeratesapi.io JSON API.
+        ExchangeAPI: Test exchangeratesapi.io API (JSON)
         """
 
         Money.fetchRates("exchangeratesapi_io")
@@ -30,7 +30,7 @@ class TestExchangeAPI(TestCase):
     def test_fetch_bitpanda(self):
 
         """
-        Test the Bitpanda Crypto JSON API.
+        ExchangeAPI: Test Bitpanda Crypto API (JSON)
         """
 
         Money.fetchRates("bitpanda")
@@ -39,7 +39,7 @@ class TestExchangeAPI(TestCase):
     def test_fetch_coingecko(self):
 
         """
-        Test the CoinGecko Crypto JSON API.
+        ExchangeAPI: Test CoinGecko Crypto API (JSON)
         """
 
         Money.fetchRates("coingecko")

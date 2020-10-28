@@ -1,4 +1,5 @@
 import decimal
+import json
 
 from .exchange_rate_fetcher import ExchangeRateFetcher
 
@@ -79,9 +80,9 @@ class Money:
                 "Expected a money string of the format '[amount] [currency]'."
             )
 
-        self.precision = precision
+        self.precision = precision + 1
         decimal.getcontext().prec = self.precision
-        self.amount = decimal.Decimal(moneyStringSplit[0]) * 1
+        self.amount = decimal.Decimal(moneyStringSplit[0]) * decimal.Decimal(1)
         self.currency = moneyStringSplit[1]
 
     def __repr__(self):
@@ -92,6 +93,28 @@ class Money:
 
         decimal.getcontext().prec = self.precision
         return "{:f}".format(self.amount.normalize()) + " " + self.currency
+
+    # --- SERIALIZATION METHODS --- #
+
+    def serialize(self, indent=4, sort_keys=True):
+        d = {
+            "_type": "Money",
+            "amount": "{:f}".format(self.amount),
+            "currency": self.currency,
+            "precision": self.precision - 1,
+        }
+
+        return json.dumps(d, indent=indent, sort_keys=sort_keys)
+
+    @staticmethod
+    def deserialize(d):
+        if isinstance(d, str):
+            d = json.loads(d)
+
+        if d["_type"] != "Money":
+            raise ValueError("Cannot deserialize objects other than Money.")
+
+        return Money(d["amount"] + " " + d["currency"], d["precision"])
 
     # --- CLASS SPECIFIC METHODS --- #
 

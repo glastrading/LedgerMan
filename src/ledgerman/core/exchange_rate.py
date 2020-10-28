@@ -1,4 +1,6 @@
 import decimal
+import json
+
 from .money import Money
 
 
@@ -27,6 +29,28 @@ class ExchangeRate:
         """
 
         return str(self.__dict__())
+
+    # --- SERIALIZATION METHODS --- #
+
+    def serialize(self, indent=4, sort_keys=True):
+        d = {
+            "_type": "ExchangeRate",
+            "baseCurrency": self.baseCurrency,
+            "destCurrency": self.destCurrency,
+            "rate": self.rate,
+        }
+
+        return json.dumps(d, indent=indent, sort_keys=sort_keys)
+
+    @staticmethod
+    def deserialize(d):
+        if isinstance(d, str):
+            d = json.loads(d)
+
+        if d["_type"] != "ExchangeRate":
+            raise ValueError("Cannot deserialize objects other than ExchangeRate.")
+
+        return ExchangeRate(d["baseCurrency"], d["destCurrency"], d["rate"])
 
     # --- CLASS SPECIFIC METHODS --- #
 

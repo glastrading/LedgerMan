@@ -1,5 +1,5 @@
 import datetime
-import cliprint
+import json
 
 
 class Journal:
@@ -10,7 +10,7 @@ class Journal:
 
     # --- DATA MODEL METHODS --- #
 
-    def __init__(self):
+    def __init__(self, *entries):
 
         """
         Create a journal.
@@ -18,8 +18,31 @@ class Journal:
 
         self.entries = []
 
+        for e in entries:
+            self.entries += [e]
+
     def __repr__(self):
-        return cliprint.json(self.entries)
+        return self.serialize()
+
+    # --- SERIALIZATION METHODS --- #
+
+    def serialize(self, indent=4, sort_keys=True):
+        d = {
+            "_type": "Journal",
+            "entries": self.entries,
+        }
+
+        return json.dumps(d, indent=indent, sort_keys=sort_keys)
+
+    @staticmethod
+    def deserialize(d):
+        if isinstance(d, str):
+            d = json.loads(d)
+
+        if d["_type"] != "Journal":
+            raise ValueError("Cannot deserialize objects other than Journal.")
+
+        return Journal(*d["entries"])
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -49,12 +72,23 @@ class Journal:
 
         entry = {}
 
-        entry["type"] = {1: "debit", -1: "credit"}[type]
+        from .account import Account
+
+        entry["type"] = {Account.DEBIT: "debit", Account.CREDIT: "credit"}[
+            Account.typeToInt(type)
+        ]
         entry["date"] = date.strftime("%Y-%m-%d %H:%M:%S")
         entry["amount"] = str(amount)
         entry["result"] = str(resultBalance)
-        entry["debit"] = str(debitAccount)
-        entry["credit"] = str(creditAccount)
+        entry["debit"] = debitAccount.name
+        entry["credit"] = creditAccount.name
         entry["note"] = note
 
         self.entries += [entry]
+
+    # --- DATA MODEL OPERATIONS --- #
+
+    def __eq__(self, other):
+        if type(other) != Journal:
+            return False
+        return self.entries == other.entries

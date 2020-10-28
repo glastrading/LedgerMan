@@ -17,10 +17,10 @@ class Trade:
         """
 
         self.expense = Account(
-            Account.Type.EXPENSE, baseCurrency, name="Expense in " + baseCurrency
+            "expense", baseCurrency, name="Expense in " + baseCurrency
         )
         self.asset = Account(
-            Account.Type.ASSET, assetCurrency, name="Traded Asset in " + assetCurrency
+            "asset", assetCurrency, name="Traded Asset in " + assetCurrency
         )
 
         self.baseCurrency = baseCurrency
