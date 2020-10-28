@@ -27,6 +27,15 @@ class TestExchangeAPI(TestCase):
         Money.fetchRates("exchangeratesapi_io")
         Money("1 EUR").to("USD")
 
+    def test_fetch_bitpanda(self):
+
+        """
+        Test the Bitpanda Crypto JSON API.
+        """
+
+        Money.fetchRates("bitpanda")
+        Money("1 EUR").to("BEST")
+
     def test_fetch_coingecko(self):
 
         """
