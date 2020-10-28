@@ -8,6 +8,8 @@ class ExchangeRate:
     Exchange Rates convert currencies.
     """
 
+    # --- DATA MODEL METHODS --- #
+
     def __init__(self, baseCurrency, destCurrency, rate):
 
         """
@@ -18,14 +20,6 @@ class ExchangeRate:
         self.destCurrency = destCurrency
         self.rate = rate
 
-    def __dict__(self):
-
-        """
-        Convert to a dictionary (storable, loadable).
-        """
-
-        return {"base": self.baseCurrency, "dest": self.destCurrency, "rate": self.rate}
-
     def __repr__(self):
 
         """
@@ -33,6 +27,8 @@ class ExchangeRate:
         """
 
         return str(self.__dict__())
+
+    # --- CLASS SPECIFIC METHODS --- #
 
     def inverse(self):
 
@@ -105,6 +101,8 @@ class ExchangeRate:
                 "Can't convert " + money.currency + " here (" + str(self) + ")."
             )
 
+    # --- DATA MODEL OPERATIONS --- #
+
     def __eq__(self, other):
 
         """
@@ -126,6 +124,14 @@ class ExchangeRate:
             and self.destCurrency == other.baseCurrency
         ):  # equality of the inverse
             return True
+
+    def __dict__(self):
+
+        """
+        Convert to a dictionary (storable, loadable).
+        """
+
+        return {"base": self.baseCurrency, "dest": self.destCurrency, "rate": self.rate}
 
     def __hash__(self):
 

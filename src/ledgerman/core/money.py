@@ -9,13 +9,17 @@ class Money:
     Money.
     """
 
+    # --- STATIC VARIABLES --- #
+
     exchange = None
+
+    # --- STATIC METHODS --- #
 
     @staticmethod
     def ensureExchangeExists():
 
         """
-        The Money class has an associated Exchange. Ensure it exists.
+        The Money class has an associated Exchange. Make sure it exists.
         """
 
         if Money.exchange == None:
@@ -53,14 +57,7 @@ class Money:
         for e in ExchangeRateFetcher.fetch(source, verbose):
             Money.insertExchangeRate(*e)
 
-    def to(self, currency):
-
-        """
-        Convert the Money object using the global money Exchange to another currency.
-        """
-
-        Money.ensureExchangeExists()
-        return Money.exchange.convert(self, currency)
+    # --- DATA MODEL METHODS --- #
 
     def __init__(self, initArgument="0 EUR", precision=8):
 
@@ -87,10 +84,6 @@ class Money:
         self.amount = decimal.Decimal(moneyStringSplit[0]) * 1
         self.currency = moneyStringSplit[1]
 
-    def smallest(self):
-        decimal.getcontext().prec = self.precision
-        return decimal.Decimal("0." + self.precision * "0" + "1")
-
     def __repr__(self):
 
         """
@@ -100,7 +93,22 @@ class Money:
         decimal.getcontext().prec = self.precision
         return "{:f}".format(self.amount.normalize()) + " " + self.currency
 
-    # operations
+    # --- CLASS SPECIFIC METHODS --- #
+
+    def to(self, currency):
+
+        """
+        Convert the Money object using the global money Exchange to another currency.
+        """
+
+        Money.ensureExchangeExists()
+        return Money.exchange.convert(self, currency)
+
+    def smallest(self):
+        decimal.getcontext().prec = self.precision
+        return decimal.Decimal("0." + self.precision * "0" + "1")
+
+    # --- DATA MODEL OPERATIONS --- #
 
     def __eq__(self, other):
 
@@ -217,5 +225,3 @@ class Money:
             return self.amount / other.to(self.currency).amount
 
         return Money(str(self.amount / other) + " " + self.currency)
-
-

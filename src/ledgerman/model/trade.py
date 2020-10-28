@@ -8,6 +8,8 @@ class Trade:
     Trades represent currency-pair trades (with a broker).
     """
 
+    # --- DATA MODEL METHODS --- #
+
     def __init__(self, baseCurrency, assetCurrency):
 
         """
@@ -39,6 +41,8 @@ class Trade:
         repr += "}"
 
         return repr
+
+    # --- CLASS SPECIFIC METHODS --- #
 
     def trade(self, expense, received=None, date=None):
 

@@ -8,6 +8,8 @@ class Journal:
     Journals store transactions (note, amount, type etc).
     """
 
+    # --- DATA MODEL METHODS --- #
+
     def __init__(self):
 
         """
@@ -18,6 +20,8 @@ class Journal:
 
     def __repr__(self):
         return cliprint.json(self.entries)
+
+    # --- CLASS SPECIFIC METHODS --- #
 
     def log(
         self,

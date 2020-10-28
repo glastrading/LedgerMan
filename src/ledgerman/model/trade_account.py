@@ -8,6 +8,8 @@ class TradeAccount:
     TradeAccounts can record many trades of different currencies.
     """
 
+    # --- DATA MODEL METHODS --- #
+
     def __init__(self, baseCurrency="EUR"):
 
         """
@@ -15,6 +17,8 @@ class TradeAccount:
         """
 
         self.trades = []
+
+    # --- CLASS SPECIFIC METHODS --- #
 
     def findTrade(self, baseCurrency, assetCurrency):
 

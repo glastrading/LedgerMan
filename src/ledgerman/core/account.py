@@ -8,12 +8,16 @@ class Account:
     Accounts keep track of money on it.
     """
 
+    # --- STATIC METHODS --- #
+
     class Type:
 
         """
         The account type defines which actions increase the account.
         Debit accounts increase on debit, Credit accounts on credit.
         """
+
+        # --- STATIC VARIABLES --- #
 
         # Account(Type.DEBIT) * DEBIT == Account(Type.CREDIT) * CREDIT == 1
         DEBIT = 1
@@ -26,6 +30,8 @@ class Account:
         LIABILITY = CREDIT
         EQUITY = CREDIT
         REVENUE = CREDIT
+
+    # --- DATA MODEL METHODS --- #
 
     def __init__(self, type, startBalance="0 EUR", name="Account"):
 
@@ -56,15 +62,10 @@ class Account:
         self.type = type
         self.name = name
 
-    def __dict__(self):
-        return {
-            "name": self.name,
-            "type": {1: "debit", -1: "credit"}[self.type],
-            "balance": self.balance,
-        }
-
     def __repr__(self):
         return self.name + " (" + {1: "debit", -1: "credit"}[self.type] + ")"
+
+    # --- CLASS SPECIFIC METHODS --- #
 
     def transaction(self, type, amount, other, date=None, note="", mirror=False):
 
@@ -144,3 +145,12 @@ class Account:
         self.transaction(
             self.type * -1, amount, other, date=None, note=note, mirror=mirror
         )
+
+    # --- DATA MODEL OPERATIONS --- #
+
+    def __dict__(self):
+        return {
+            "name": self.name,
+            "type": {1: "debit", -1: "credit"}[self.type],
+            "balance": self.balance,
+        }

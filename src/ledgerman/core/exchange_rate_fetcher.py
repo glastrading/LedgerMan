@@ -8,6 +8,8 @@ class ExchangeRateFetcher:
     An API connector for ledgerman that fetches ExchangeRates.
     """
 
+    # --- STATIC METHODS --- #
+
     @staticmethod
     def printExchangeRate(e):
         print(e[0], "=>", e[2], e[1])

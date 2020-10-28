@@ -9,6 +9,8 @@ class Exchange:
     They enable multiple-step conversions between currencies.
     """
 
+    # --- DATA MODEL METHODS --- #
+
     def __init__(self, *exchangeRates):
 
         """
@@ -28,13 +30,7 @@ class Exchange:
                     + "'."
                 )
 
-    def __len__(self):
-
-        """
-        Get the stored amount of Exchange Rates.
-        """
-
-        return len(self.exchangeRates)
+    # --- CLASS SPECIFIC METHODS --- #
 
     def insertExchangeRate(self, *args):  # update / append a rate
 
@@ -81,13 +77,13 @@ class Exchange:
         else:
             return len(self.exchangeRatePath(baseCurrency, destCurrency)) > 0
 
-    # transform Money - unlimited steps of conversion possible :) - @finnmglas
     def exchangeRatePath(
         self, baseCurrency, destCurrency, forwardPath=[], backwardPath=[], verbose=False
     ):
 
         """
         Find a path of ExchangeRates to convert one currency to another.
+        Transform Money - unlimited steps of conversion possible :) - @finnmglas
         """
 
         if verbose:
@@ -184,3 +180,13 @@ class Exchange:
                 print("Converted to:", convertedMoney)
 
         return convertedMoney
+
+    # --- DATA MODEL OPERATIONS --- #
+
+    def __len__(self):
+
+        """
+        Get the stored amount of Exchange Rates.
+        """
+
+        return len(self.exchangeRates)
