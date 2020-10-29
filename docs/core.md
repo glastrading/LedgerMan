@@ -15,7 +15,7 @@ m1 = Money() # default: 0 EUR
 m2 = Money("10 USD")
 ```
 
-You can set a precision (how many digits behind the separator are stored) for money objects:
+You can set a precision (how many digits behind the separator are stored) for money objects. If you don't, LedgerMan will choose a common precision for your currency.
 
 ```python
 m3 = Money("10 BTC", precision=8)

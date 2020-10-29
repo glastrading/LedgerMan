@@ -13,6 +13,18 @@ class Money:
     # --- STATIC VARIABLES --- #
 
     exchange = None
+    precisions = {  # automatic-precisions
+        "EUR": 2,
+        "BEST": 8,
+        "BTC": 8,
+        "PAN": 8,
+        "USDT": 6,
+        "LINK": 8,
+        "CHF": 2,
+        "ETH": 8,
+        "XRP": 8,
+        "MIOTA": 8,
+    }
 
     # --- STATIC METHODS --- #
 
@@ -58,9 +70,18 @@ class Money:
         for e in ExchangeRateFetcher.fetch(source, verbose):
             Money.insertExchangeRate(*e)
 
+    @staticmethod
+    def setPrecision(currency, precision=8):
+
+        """
+        Set a global precision for money of a currency.
+        """
+
+        Money.precisions[currency] = precision
+
     # --- DATA MODEL METHODS --- #
 
-    def __init__(self, initArgument="0 EUR", precision=8):
+    def __init__(self, initArgument="0 EUR", precision=None):
 
         """
         Create a Money object.
@@ -80,10 +101,19 @@ class Money:
                 "Expected a money string of the format '[amount] [currency]'."
             )
 
+        self.currency = moneyStringSplit[1]
+
+        # Try to get a global precision value for the currency
+        if not precision:
+            if self.currency in Money.precisions:
+                precision = Money.precisions[self.currency]
+            else:
+                precision = 8
+
         self.precision = precision + 1
         decimal.getcontext().prec = self.precision
+
         self.amount = decimal.Decimal(moneyStringSplit[0]) * decimal.Decimal(1)
-        self.currency = moneyStringSplit[1]
 
     def __repr__(self):
 
