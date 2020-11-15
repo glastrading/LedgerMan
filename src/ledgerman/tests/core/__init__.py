@@ -1,5 +1,7 @@
 # --- PACKAGE: ledgerman.tests.core --- #
 
+from .ledger import TestLedger
+
 from .money import TestMoney
 
 from .exchange_rate import TestExchangeRate
