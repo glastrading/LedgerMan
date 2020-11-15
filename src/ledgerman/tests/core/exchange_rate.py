@@ -81,6 +81,6 @@ class TestExchangeRate(TestCase):
         """
 
         e1 = ExchangeRate("A", "B", 3.2)
-        e2 = ExchangeRate.deserialize(e1.serialize())
+        e2 = ExchangeRate.decode(e1.encode())
 
         self.assertEquals(e1, e2)

@@ -98,12 +98,12 @@ class TestAccount(TestCase):
         """
 
         a1 = Account("debit")
-        a2 = Account.deserialize(a1.serialize())
+        a2 = Account.decode(a1.encode())
 
         self.assertEquals(a1, a2)
 
         a3 = Account("debit")
         a3.debit("20 EUR", a1)
-        a4 = Account.deserialize(a3.serialize())
+        a4 = Account.decode(a3.encode())
 
         self.assertEquals(a3, a4)

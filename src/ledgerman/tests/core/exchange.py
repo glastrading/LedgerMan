@@ -81,6 +81,6 @@ class TestExchange(TestCase):
         """
 
         e1 = Exchange(["A", "B", 3.2])
-        e2 = Exchange.deserialize(e1.serialize())
+        e2 = Exchange.decode(e1.encode())
 
         self.assertEquals(e1, e2)
