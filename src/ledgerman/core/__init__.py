@@ -1,5 +1,7 @@
 # --- PACKAGE: ledgerman.core --- #
 
+from .ledger import Ledger
+
 from .money import Money
 
 from .exchange_rate import ExchangeRate
