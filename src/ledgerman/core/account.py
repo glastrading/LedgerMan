@@ -1,10 +1,10 @@
-import json
+from jcdb import Object
 
 from .money import Money
 from .journal import Journal
 
 
-class Account:
+class Account(Object):
 
     """
     Accounts keep track of money on it.
@@ -49,7 +49,7 @@ class Account:
 
     # --- DATA MODEL METHODS --- #
 
-    def __init__(self, type, balance="0 EUR", journal=None, name="Account"):
+    def __init__(self, type="debit", balance="0 EUR", journal=None, name="Account"):
 
         """
         Create an Account.
@@ -79,33 +79,7 @@ class Account:
         self.name = name
 
     def __repr__(self):
-        return self.serialize()
-
-    # --- SERIALIZATION METHODS --- #
-
-    def serialize(self, indent=4, sort_keys=True):
-        d = {
-            "_type": "Account",
-            "name": self.name,
-            "type": self.type,
-            "balance": json.loads(self.balance.serialize()),
-            "journal": json.loads(self.journal.serialize()),
-        }
-
-        return json.dumps(d, indent=indent, sort_keys=sort_keys)
-
-    @staticmethod
-    def deserialize(d):
-        if isinstance(d, str):
-            d = json.loads(d)
-
-        if d["_type"] != "Account":
-            raise ValueError("Cannot deserialize objects other than Account.")
-
-        journal = Journal.deserialize(d["journal"])
-        balance = Money.deserialize(d["balance"])
-
-        return Account(d["type"], balance=balance, journal=journal)
+        return self.encode()
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -206,3 +180,6 @@ class Account:
             and self.balance == other.balance
             and self.journal == other.journal
         )
+
+
+Object.register(Account)

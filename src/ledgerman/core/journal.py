@@ -1,8 +1,9 @@
+from jcdb import Object
+
 import datetime
-import json
 
 
-class Journal:
+class Journal(Object):
 
     """
     Journals store transactions (note, amount, type etc).
@@ -22,27 +23,7 @@ class Journal:
             self.entries += [e]
 
     def __repr__(self):
-        return self.serialize()
-
-    # --- SERIALIZATION METHODS --- #
-
-    def serialize(self, indent=4, sort_keys=True):
-        d = {
-            "_type": "Journal",
-            "entries": self.entries,
-        }
-
-        return json.dumps(d, indent=indent, sort_keys=sort_keys)
-
-    @staticmethod
-    def deserialize(d):
-        if isinstance(d, str):
-            d = json.loads(d)
-
-        if d["_type"] != "Journal":
-            raise ValueError("Cannot deserialize objects other than Journal.")
-
-        return Journal(*d["entries"])
+        return self.encode()
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -92,3 +73,6 @@ class Journal:
         if type(other) != Journal:
             return False
         return self.entries == other.entries
+
+
+Object.register(Journal)

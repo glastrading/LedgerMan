@@ -139,6 +139,6 @@ class TestMoney(TestCase):
         """
 
         m1 = Money("9.76 EUR")
-        m2 = Money.deserialize(m1.serialize())
+        m2 = Money.decode(m1.encode())
 
         self.assertEquals(m1, m2)

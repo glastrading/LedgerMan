@@ -1,10 +1,10 @@
-import decimal
-import json
+from jcdb import Object
 
+from .decimal import Decimal
 from .money import Money
 
 
-class ExchangeRate:
+class ExchangeRate(Object):
 
     """
     Exchange Rates convert currencies.
@@ -12,7 +12,7 @@ class ExchangeRate:
 
     # --- DATA MODEL METHODS --- #
 
-    def __init__(self, baseCurrency, destCurrency, rate):
+    def __init__(self, baseCurrency="", destCurrency="", rate=1):
 
         """
         Create an Exchange Rate.
@@ -28,29 +28,7 @@ class ExchangeRate:
         Represent an Exchange Rate.
         """
 
-        return str(self.__dict__())
-
-    # --- SERIALIZATION METHODS --- #
-
-    def serialize(self, indent=4, sort_keys=True):
-        d = {
-            "_type": "ExchangeRate",
-            "baseCurrency": self.baseCurrency,
-            "destCurrency": self.destCurrency,
-            "rate": self.rate,
-        }
-
-        return json.dumps(d, indent=indent, sort_keys=sort_keys)
-
-    @staticmethod
-    def deserialize(d):
-        if isinstance(d, str):
-            d = json.loads(d)
-
-        if d["_type"] != "ExchangeRate":
-            raise ValueError("Cannot deserialize objects other than ExchangeRate.")
-
-        return ExchangeRate(d["baseCurrency"], d["destCurrency"], d["rate"])
+        return str(self.__dict__)
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -101,24 +79,18 @@ class ExchangeRate:
         Convert money from one currency to another.
         """
 
-        decimal.getcontext().prec = money.precision
-
         if not isinstance(money, Money):  # only money can be converted
             raise TypeError("Can't convert " + str(type(money)) + " to money.")
 
         if self.baseCurrency == money.currency:  # base -> dest
             return Money(
-                str(money.amount * decimal.Decimal(self.rate))
-                + " "
-                + self.destCurrency,
-                precision=money.precision,
+                str(money.amount * Decimal(self.rate)) + " " + self.destCurrency,
+                precision=money.amount.precision,
             )
         elif self.destCurrency == money.currency:  # base <- dest
             return Money(
-                str(money.amount / decimal.Decimal(self.rate))
-                + " "
-                + self.baseCurrency,
-                precision=money.precision,
+                str(money.amount / Decimal(self.rate)) + " " + self.baseCurrency,
+                precision=money.amount.precision,
             )
         else:  # unknown currency
             raise TypeError(
@@ -149,14 +121,6 @@ class ExchangeRate:
         ):  # equality of the inverse
             return True
 
-    def __dict__(self):
-
-        """
-        Convert to a dictionary (storable, loadable).
-        """
-
-        return {"base": self.baseCurrency, "dest": self.destCurrency, "rate": self.rate}
-
     def __hash__(self):
 
         """
@@ -169,3 +133,6 @@ class ExchangeRate:
         if hash1 > hash2:
             return hash1
         return hash2
+
+
+Object.register(ExchangeRate)

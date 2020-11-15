@@ -24,6 +24,6 @@ class TestJournal(TestCase):
         """
 
         j1 = Journal()
-        j2 = Journal.deserialize(j1.serialize())
+        j2 = Journal.decode(j1.encode())
 
         self.assertEquals(j1, j2)

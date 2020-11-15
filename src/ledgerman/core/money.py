@@ -1,10 +1,10 @@
-import decimal
-import json
+from jcdb import Object
 
+from .decimal import Decimal
 from .exchange_rate_fetcher import ExchangeRateFetcher
 
 
-class Money:
+class Money(Object):
 
     """
     Money.
@@ -110,10 +110,7 @@ class Money:
             else:
                 precision = 8
 
-        self.precision = precision + 1
-        decimal.getcontext().prec = self.precision
-
-        self.amount = decimal.Decimal(moneyStringSplit[0]) * decimal.Decimal(1)
+        self.amount = Decimal(moneyStringSplit[0], precision)
 
     def __repr__(self):
 
@@ -121,30 +118,7 @@ class Money:
         Represent a Money object: '[amount] [currency]'.
         """
 
-        decimal.getcontext().prec = self.precision
-        return "{:f}".format(self.amount.normalize()) + " " + self.currency
-
-    # --- SERIALIZATION METHODS --- #
-
-    def serialize(self, indent=4, sort_keys=True):
-        d = {
-            "_type": "Money",
-            "amount": "{:f}".format(self.amount),
-            "currency": self.currency,
-            "precision": self.precision - 1,
-        }
-
-        return json.dumps(d, indent=indent, sort_keys=sort_keys)
-
-    @staticmethod
-    def deserialize(d):
-        if isinstance(d, str):
-            d = json.loads(d)
-
-        if d["_type"] != "Money":
-            raise ValueError("Cannot deserialize objects other than Money.")
-
-        return Money(d["amount"] + " " + d["currency"], d["precision"])
+        return str(self.amount) + " " + self.currency
 
     # --- CLASS SPECIFIC METHODS --- #
 
@@ -157,10 +131,6 @@ class Money:
         Money.ensureExchangeExists()
         return Money.exchange.convert(self, currency)
 
-    def smallest(self):
-        decimal.getcontext().prec = self.precision
-        return decimal.Decimal("0." + self.precision * "0" + "1")
-
     # --- DATA MODEL OPERATIONS --- #
 
     def __eq__(self, other):
@@ -168,8 +138,6 @@ class Money:
         """
         Check equality of Money objects.
         """
-
-        decimal.getcontext().prec = self.precision
 
         if not isinstance(other, Money):
             raise TypeError(
@@ -185,8 +153,6 @@ class Money:
         """
         Add Money objects.
         """
-
-        decimal.getcontext().prec = self.precision
 
         if not isinstance(other, Money):
             raise TypeError(
@@ -205,8 +171,6 @@ class Money:
         Subtract Money objects.
         """
 
-        decimal.getcontext().prec = self.precision
-
         if not isinstance(self, Money):
             raise TypeError(
                 "unsupported operand type(s) for -: 'Money' and '"
@@ -224,8 +188,6 @@ class Money:
         Negate Money objects.
         """
 
-        decimal.getcontext().prec = self.precision
-
         return Money() - self
 
     def __mul__(self, other):
@@ -234,12 +196,10 @@ class Money:
         Multiply Money objects by numbers.
         """
 
-        decimal.getcontext().prec = self.precision
-
         if (
             not isinstance(other, float)
             and not isinstance(other, int)
-            and not isinstance(other, decimal.Decimal)
+            and not isinstance(other, Decimal)
         ):
             raise TypeError(
                 "unsupported operand type(s) for *: 'Money' and '"
@@ -248,7 +208,7 @@ class Money:
             )
 
         if isinstance(other, float):  # make sure it is rounded properly
-            other = decimal.Decimal(other)
+            other = Decimal(other)
 
         return Money(str(self.amount * other) + " " + self.currency)
 
@@ -258,12 +218,10 @@ class Money:
         Divide Money objects by numbers or others.
         """
 
-        decimal.getcontext().prec = self.precision
-
         if (
             not isinstance(other, float)
             and not isinstance(other, int)
-            and not isinstance(other, decimal.Decimal)
+            and not isinstance(other, Decimal)
             and not isinstance(other, Money)
         ):
             raise TypeError(
@@ -273,8 +231,11 @@ class Money:
             )
 
         if isinstance(other, float):
-            other = decimal.Decimal(other)
+            other = Decimal(other)
         if isinstance(other, Money):
             return self.amount / other.to(self.currency).amount
 
         return Money(str(self.amount / other) + " " + self.currency)
+
+
+Object.register(Money)

@@ -4,7 +4,7 @@ LedgerMan implements some core classes that help you interact with finances.
 
 **Note - serialization:**
 
-Every financial object implemented by LedgerMan can be serialized to JSON by calling `.serialize()` on an object. To deserialize objects from strings, call `.deserialize(string)` on the class you want to be deserialized.
+LedgerMan uses [jcdb](https://github.com/finnmglas/jcdb) for serialization - every object implemented by LedgerMan can be encoded to JSON by calling `object.encode()`. To decode objects from JSON strings, call `class.decode(string)` on the class you want to be decode an object of.
 
 ## Money
 
@@ -34,19 +34,6 @@ m -= Money("5 EUR")
 m == Money("10 EUR") # true
 
 m - Money("20 ETH") # ERROR - you can't add different currencies
-```
-
-**Serialized Money():**
-
-Serializing Money (`serialize()`) will result in JSON of this structure:
-
-```
-{
-    "_type": "Money",
-    "amount": "0",
-    "currency": "EUR",
-    "precision": 8
-}
 ```
 
 ## Exchange Rates
@@ -136,29 +123,3 @@ m = Money("5 EUR") + Money("5 ETH") + Money("5 LTC") # no error
 ```
 
 Note that the APIs may not be reliable all the time and that you will need a network connection.
-
-**Serialized ExchangeRates():**
-
-Serializing ExchangeRates (`serialize()`) will result in JSON of this structure:
-
-```
-{
-    "_type": "ExchangeRate",
-    "baseCurrency": "EUR",
-    "destCurrency": "USD",
-    "rate": 1.18
-}
-```
-
-**Serialized Exchanges():**
-
-Serializing Exchanges (`serialize()`) will result in JSON of this structure:
-
-```
-{
-    "_type": "Exchange",
-    "exchangeRates": []
-}
-```
-
-where `exchangeRates` is a list of serialized ExchangeRates.

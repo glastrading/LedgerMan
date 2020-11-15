@@ -1,7 +1,7 @@
-import json
+from jcdb import Object
 
 
-class Ledger:
+class Ledger(Object):
 
     """
     Ledgers store account data and metadata.
@@ -41,3 +41,6 @@ class Ledger:
 
     def __len__(self):
         return len(self.accounts)
+
+
+Object.register(Ledger)
