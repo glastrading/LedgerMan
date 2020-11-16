@@ -1,4 +1,8 @@
-import wx
+import wx, webbrowser
+
+SOURCE_URL = "https://github.com/finnmglas/LedgerMan"
+DOCS_URL = "https://ledgerman.readthedocs.io"
+DONATE_URL = "https://sponsor.finnmglas.com"
 
 
 class MainView(wx.Frame):
@@ -11,25 +15,57 @@ class MainView(wx.Frame):
 
         menubar = wx.MenuBar()
 
-        fileMenu = wx.Menu()
-        fileMenu.Append(wx.ID_NEW, "&New")
-        fileMenu.Append(wx.ID_OPEN, "&Open")
-        fileMenu.Append(wx.ID_SAVE, "&Save")
-        fileMenu.AppendSeparator()
+        # File Menu
 
-        imp = wx.Menu()
-        imp.Append(wx.ID_ANY, "Import newsfeed list...")
-        imp.Append(wx.ID_ANY, "Import bookmarks...")
-        imp.Append(wx.ID_ANY, "Import mail...")
+        menu_file = wx.Menu()
+        menu_file.Append(wx.ID_NEW, "&New")
+        menu_file.Append(wx.ID_OPEN, "&Open")
+        menu_file.Append(wx.ID_SAVE, "&Save")
+        menu_file.AppendSeparator()
 
-        fileMenu.Append(wx.ID_ANY, "I&mport", imp)
+        menu_file_quit = wx.MenuItem(menu_file, wx.ID_EXIT, "&Quit")
+        menu_file.Append(menu_file_quit)
+        self.Bind(wx.EVT_MENU, self.quit, menu_file_quit)
 
-        qmi = wx.MenuItem(fileMenu, wx.ID_EXIT, "&Quit\tCtrl+W")
-        fileMenu.Append(qmi)
+        menubar.Append(menu_file, "&File")
 
-        self.Bind(wx.EVT_MENU, self.quit, qmi)
+        # Resource Menu
 
-        menubar.Append(fileMenu, "&File")
+        menu_resources = wx.Menu()
+
+        menu_resources_source = wx.MenuItem(
+            menu_resources, wx.ID_ANY, "Source (&GitHub)"
+        )
+        menu_resources.Append(menu_resources_source)
+        self.Bind(
+            wx.EVT_MENU,
+            lambda e: webbrowser.open(SOURCE_URL),
+            menu_resources_source,
+        )
+
+        menu_resources_docs = wx.MenuItem(menu_resources, wx.ID_ANY, "&Documentation")
+        menu_resources.Append(menu_resources_docs)
+        self.Bind(
+            wx.EVT_MENU,
+            lambda e: webbrowser.open(DOCS_URL),
+            menu_resources_docs,
+        )
+        menu_resources.AppendSeparator()
+
+        menu_resources_sponsor = wx.MenuItem(
+            menu_resources, wx.ID_ANY, "&Sponsor LedgerMan"
+        )
+        menu_resources.Append(menu_resources_sponsor)
+        self.Bind(
+            wx.EVT_MENU,
+            lambda e: webbrowser.open(DONATE_URL),
+            menu_resources_sponsor,
+        )
+
+        menubar.Append(menu_resources, "&Resources")
+
+        # Finish setup
+
         self.SetMenuBar(menubar)
 
         self.SetSize((600, 400))
