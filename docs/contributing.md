@@ -15,7 +15,6 @@ If you want to contribute code, make sure you keep the class structure the same.
 # --- STATIC VARIABLES --- #
 # --- STATIC METHODS --- #
 # --- DATA MODEL METHODS --- #
-# --- SERIALIZATION METHODS --- #
 # --- CLASS SPECIFIC METHODS --- #
 # --- DATA MODEL OPERATIONS --- #
 ```

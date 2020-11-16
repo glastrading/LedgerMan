@@ -3,7 +3,20 @@
 
 LedgerMan implements classes for you to use for accounting and analyzing accounts.
 
-## Accounts
+## Ledger
+
+A ledger is a collection of Accounts that serve a common purpose or entity.
+
+```python
+l1 = Ledger()
+l2 = Ledger(name="My Ledger")
+l3 = Ledger(
+  name="My Ledger",
+  # account_1, account_2 ...
+)
+```
+
+## Account
 
 LedgerMan Accounts use [double-entry bookkeeping](https://en.wikipedia.org/wiki/Double-entry_bookkeeping):
 

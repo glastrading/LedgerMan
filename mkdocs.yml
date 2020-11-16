@@ -6,7 +6,8 @@ site_author: Finn M Glas
 
 nav:
     - 'Introduction': 'index.md'
-    - 'LedgerMan Finances': 'core.md'
+    - 'LedgerMan Core': 'core.md'
+    - 'LedgerMan Finance': 'finance.md'
     - 'LedgerMan Accounting': 'accounting.md'
     - 'LedgerMan CLI tools': 'tools.md'
     - 'Contributing': 'contributing.md'
