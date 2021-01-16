@@ -21,7 +21,7 @@ from ledgerman import *
 
 ## About
 
-LedgerMan's source code is hosted [on GitHub](https://github.com/finnmglas/LedgerMan), the Python module [on PyPI][pypi] and its docs on [readthedocs](https://ledgerman.readthedocs.io). It is provided under the MIT license.
+LedgerMan's source code is hosted [on GitHub](https://github.com/glastrading/LedgerMan), the Python module [on PyPI][pypi] and its docs on [readthedocs](https://ledgerman.readthedocs.io). It is provided under the MIT license.
 
 LedgerMan is a project by [Finn M Glas][website], you can [sponsor] it or [contact Finn][contact] about major issues or cooperations.
 
@@ -37,9 +37,9 @@ LedgerMan is a project by [Finn M Glas][website], you can [sponsor] it or [conta
 <!-- GitHub related -->
 
   [joingh]: https://github.com/join
-  [newissue]: https://github.com/finnmglas/ledgerman/issues/new/choose
-  [fork]: https://github.com/finnmglas/ledgerman/fork
-  [star]: https://github.com/finnmglas/ledgerman/stargazers
+  [newissue]: https://github.com/glastrading/ledgerman/issues/new/choose
+  [fork]: https://github.com/glastrading/ledgerman/fork
+  [star]: https://github.com/glastrading/ledgerman/stargazers
   [shield-star]: https://img.shields.io/github/stars/finnmglas/LedgerMan?label=Star&style=social
 
   [shield-fork]: https://img.shields.io/github/forks/finnmglas/LedgerMan?label=Fork&style=social

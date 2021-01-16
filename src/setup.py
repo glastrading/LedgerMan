@@ -17,9 +17,9 @@ LedgerMan
 
 `View on GitHub`_, `contact Finn`_ or `sponsor this project ❤️`_!
 
-.. _its usage: https://github.com/finnmglas/ledgerman#usage
+.. _its usage: https://github.com/glastrading/ledgerman#usage
 .. _join us on discord: https://discord.com/invite/BsZXaur
-.. _View on GitHub: https://github.com/finnmglas/ledgerman
+.. _View on GitHub: https://github.com/glastrading/ledgerman
 .. _contact Finn: https://contact.finnmglas.com
 .. _sponsor this project ❤️: https://sponsor.finnmglas.com
 
@@ -46,7 +46,7 @@ setuptools.setup(
         "Topic :: Office/Business :: Financial :: Accounting",
     ],
     keywords="accounting finance manager money library ledger ledgerman crypto",
-    url="http://github.com/finnmglas/LedgerMan",
+    url="http://github.com/glastrading/LedgerMan",
     author="Finn M Glas",
     author_email="finn@finnmglas.com",
     license="MIT",

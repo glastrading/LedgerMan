@@ -1,6 +1,6 @@
 import wx, webbrowser
 
-SOURCE_URL = "https://github.com/finnmglas/LedgerMan"
+SOURCE_URL = "https://github.com/glastrading/LedgerMan"
 DOCS_URL = "https://ledgerman.readthedocs.io"
 DONATE_URL = "https://sponsor.finnmglas.com"
 

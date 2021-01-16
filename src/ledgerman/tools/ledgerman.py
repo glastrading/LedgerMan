@@ -28,7 +28,7 @@ class LedgerMan:
         """
         LedgerMan.parser = argparse.ArgumentParser(
             description="LedgerMan calculates and manages finances.",
-            epilog="More details at https://github.com/finnmglas/LedgerMan.",
+            epilog="More details at https://github.com/glastrading/LedgerMan.",
         )
 
         subparsers = LedgerMan.parser.add_subparsers(

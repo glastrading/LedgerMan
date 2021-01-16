@@ -4,7 +4,7 @@ Here are some central features of LedgerMan that apply to every object / class.
 
 ## Serialization
 
-LedgerMan uses [JCDB](https://github.com/finnmglas/jcdb) for serialization - every object implemented by LedgerMan can be encoded to JSON by calling `object.encode()`. To decode objects from JSON strings, call `class.decode(string)` on the class you want to be decode an object of.
+LedgerMan uses [JCDB](https://github.com/glastrading/jcdb) for serialization - every object implemented by LedgerMan can be encoded to JSON by calling `object.encode()`. To decode objects from JSON strings, call `class.decode(string)` on the class you want to be decode an object of.
 
 The JSON format storage used in JCDB works like this:
 

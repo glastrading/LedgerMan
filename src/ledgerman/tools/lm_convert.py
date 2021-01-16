@@ -25,7 +25,7 @@ class LedgerManConvert:
         LedgerManConvert.parser = argparse.ArgumentParser(
             prog="ledgerman convert",
             description="The 'ledgerman-convert' tool coverts and adds currencies.",
-            epilog="More details at https://github.com/finnmglas/LedgerMan#tools-convert.",
+            epilog="More details at https://github.com/glastrading/LedgerMan#tools-convert.",
         )
         LedgerManConvert.parser.add_argument(
             "--rates",

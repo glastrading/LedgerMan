@@ -38,9 +38,9 @@ You can also [contact Finn][contact] or [sponsor this project ❤️][sponsor]!
   [sponsor]: https://sponsor.finnmglas.com
   [discord]: https://discord.com/invite/BsZXaur
   [joingh]: https://github.com/join
-  [newissue]: https://github.com/finnmglas/ledgerman/issues/new/choose
-  [fork]: https://github.com/finnmglas/ledgerman/fork
-  [star]: https://github.com/finnmglas/ledgerman/stargazers
+  [newissue]: https://github.com/glastrading/ledgerman/issues/new/choose
+  [fork]: https://github.com/glastrading/ledgerman/fork
+  [star]: https://github.com/glastrading/ledgerman/stargazers
   [shield-star]: https://img.shields.io/github/stars/finnmglas/LedgerMan?label=Star&style=social
   [shield-fork]: https://img.shields.io/github/forks/finnmglas/LedgerMan?label=Fork&style=social
   [code-black]: https://github.com/psf/black

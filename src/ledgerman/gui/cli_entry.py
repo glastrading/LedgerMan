@@ -25,7 +25,7 @@ class LedgerManGUI:
         LedgerManGUI.parser = argparse.ArgumentParser(
             prog="ledgerman gui",
             description="LedgerMan's graphical user interface.",
-            epilog="More details at https://github.com/finnmglas/LedgerMan",
+            epilog="More details at https://github.com/glastrading/LedgerMan",
         )
 
         return LedgerManGUI.parser
