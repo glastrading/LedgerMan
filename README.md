@@ -1,6 +1,5 @@
 [![PyPI - Version][pypi-version-badge]][pypi]
 [![Downloads][pepi-downloads-badge]][pepy tech]
-[![Discord][discord-badge]][discord]
 [![Code style: black][code-black-badge]][code-black]
 
 # LedgerMan :ledger:
@@ -43,8 +42,6 @@ If you can't help with the development (you're busy, whatever...), make sure to 
 
 [![][shield-star]][star]
 
-You can also join our [discord]!
-
 <a id="contributing-code"></a>
 ### Contributing Code
 
@@ -66,10 +63,6 @@ You can also [contact Finn][contact] or [sponsor this project :heart:][sponsor]!
 <!-- Finns owned media -->
   [contact]: https://contact.finnmglas.com
   [sponsor]: https://sponsor.finnmglas.com
-
-<!-- Community -->
-  [discord]: https://discord.com/invite/BsZXaur
-  [discord-badge]: https://img.shields.io/badge/discord-join%20chat-000
 
 <!-- GitHub related -->
 
